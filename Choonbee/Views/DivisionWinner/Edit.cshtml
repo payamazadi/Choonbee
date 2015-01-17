@@ -1,0 +1,59 @@
+﻿@model Choonbee.Models.DivisionWinner
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>DivisionWinner</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DivisionId, "Division")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("DivisionId", String.Empty)
+            @Html.ValidationMessageFor(model => model.DivisionId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParticipantId, "Participant")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ParticipantId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ParticipantId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Rank)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Rank)
+            @Html.ValidationMessageFor(model => model.Rank)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Points)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Points)
+            @Html.ValidationMessageFor(model => model.Points)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

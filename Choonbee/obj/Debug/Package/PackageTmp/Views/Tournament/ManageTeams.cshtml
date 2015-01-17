@@ -1,0 +1,30 @@
+﻿@model Dictionary<Choonbee.Models.TournamentTeam, Choonbee.Models.School>
+@{
+    ViewBag.Title = "ManageTeams";
+}
+
+<h2>ManageTeams</h2>
+
+<h3><a href="/Tournament/AddTeam/@ViewBag.TournamentId">Add Team</a></h3>
+<table>
+    <tr>
+        <td>School</td>
+        <td>Team Name</td>
+        <td>Capacity</td>
+        <td></td>
+        <td></td>
+    </tr>
+@foreach (var item in Model)
+{
+    
+    <tr>
+        <td>@item.Value.Name</td>
+        <td>@item.Key.Name</td>
+        <td>@item.Key.numParticipants/10</td>
+        <td><a href="/Tournament/AddTeamParticipant/@ViewBag.TournamentId?teamId=@item.Key.TeamId">Add Participant</a></td>
+        <td><a href="/Tournament/ManageTeamParticipants/@ViewBag.TournamentId?teamId=@item.Key.TeamId">Manage Participants</a></td>
+    </tr>
+}
+</table>
+<br />
+@Html.ActionLink("Return to tournament..", "Details", new { id = ViewBag.TournamentId })

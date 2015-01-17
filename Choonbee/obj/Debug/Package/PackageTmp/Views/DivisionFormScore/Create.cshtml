@@ -1,0 +1,68 @@
+﻿@model Choonbee.Models.DivisionFormScore
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Add Score</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>DivisionFormScore</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DivisionId, "Division")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("DivisionId", String.Empty)
+            @Html.ValidationMessageFor(model => model.DivisionId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParticipantId, "Participant")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ParticipantId", String.Empty)
+            @Html.ValidationMessageFor(model => model.ParticipantId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.JudgeOneScore)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.JudgeOneScore)
+            @Html.ValidationMessageFor(model => model.JudgeOneScore)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.JudgeTwoScore)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.JudgeTwoScore)
+            @Html.ValidationMessageFor(model => model.JudgeTwoScore)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.JudgeThreeScore)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.JudgeThreeScore)
+            @Html.ValidationMessageFor(model => model.JudgeThreeScore)
+        </div>
+
+        
+        <p>
+            <input type="submit" value="Add" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    <a href="/Division/FormScoring/@ViewBag.TheDivisionId">Back to list..</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

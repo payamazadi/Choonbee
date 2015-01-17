@@ -1,0 +1,11 @@
+﻿@model Choonbee.Models.Tournament
+@{
+    ViewBag.Title = "AddExistingParticipant";
+}
+
+<h2>Add Existing Participant to @ViewBag.Heading</h2>
+@using (Html.BeginForm()) {
+@Html.DropDownList("AllParticipants", ViewBag.AllParticipants as SelectList)<br />
+    <input type="submit" value="Add Participant" />
+}
+<h3><a href="/Tournament/Details/@ViewBag.TournamentId">Back to Tournament..</a></h3>

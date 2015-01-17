@@ -1,0 +1,35 @@
+﻿@model Choonbee.Models.RankGroup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>RankGroup</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+    <br />
+    <div class="display-label">
+        Belts
+    </div>
+    <div>
+        @if(ViewBag.TheseRanks != null){
+            foreach (var item in ViewBag.TheseRanks)
+            {
+                @item.RankName.ToString() <br />
+            }
+        }
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.RankGroupId }) |
+    @Html.ActionLink("Delete", "Delete", new { id=Model.RankGroupId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

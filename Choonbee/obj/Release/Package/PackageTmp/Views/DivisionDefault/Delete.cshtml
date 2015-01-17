@@ -1,0 +1,60 @@
+﻿@model Choonbee.Models.DivisionDefault
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>DivisionDefault</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FriendlyId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FriendlyId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RankGroup.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RankGroup.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Genders)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Genders)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AgeGroup.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AgeGroup.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DivisionType.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DivisionType.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateEntered)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateEntered)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

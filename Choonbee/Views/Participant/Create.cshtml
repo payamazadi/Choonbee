@@ -1,0 +1,124 @@
+﻿@model Choonbee.Models.Participant
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Participant</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Gender)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Gender)
+            @Html.ValidationMessageFor(model => model.Gender)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HeightFeet)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HeightFeet)
+            @Html.ValidationMessageFor(model => model.HeightFeet)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HeightInches)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HeightInches)
+            @Html.ValidationMessageFor(model => model.HeightInches)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Age)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Age)
+            @Html.ValidationMessageFor(model => model.Age)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Style)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Style)
+            @Html.ValidationMessageFor(model => model.Style)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Form)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Form)
+            @Html.ValidationMessageFor(model => model.Form)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Weapon)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Weapon)
+            @Html.ValidationMessageFor(model => model.Weapon)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SchoolId, "School")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SchoolId", String.Empty)
+            @Html.ValidationMessageFor(model => model.SchoolId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Active)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Active)
+            @Html.ValidationMessageFor(model => model.Active)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RankId, "Rank")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("RankId", String.Empty)
+            @Html.ValidationMessageFor(model => model.RankId)
+        </div>
+
+        <input type="hidden" name="tournamentId" value="@ViewBag.TournamentId" />
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

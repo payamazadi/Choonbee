@@ -1,0 +1,36 @@
+﻿@model Choonbee.Models.AgeGroup
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>AgeGroup</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MinAge)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MinAge)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MaxAge)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MaxAge)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.AgeGroupId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

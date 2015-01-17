@@ -1,0 +1,109 @@
+﻿@model Choonbee.Models.Participant
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Participant</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HeightFeet)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HeightFeet)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HeightInches)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HeightInches)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Age)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Age)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Style)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Style)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Form)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Form)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Weapon)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Weapon)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.School.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.School.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateEntered)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateEntered)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateModified)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateModified)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Active)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Active)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Rank.RankName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Rank.RankName)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

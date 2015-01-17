@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "DumpRegistration";
+}
+<style>
+    td .participant {
+   border: 1px solid black;
+} 
+</style>
+<h2>DumpRegistration</h2>
+
+@foreach (var division in ViewBag.TournamentDivisions.Keys)
+{
+    <div class="page-break"></div>
+    <table border="1">
+        <tr>
+            <td>
+                @division.FriendlyId @division.DivisionType.Name @division.AgeGroup.Name @division.RankGroup.Name
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table>
+                    <thead>
+                        <tr>
+                            <td class="participant">Name</td>
+                            <td class="participant">School</td>
+                            <td class="participant">Style</td>
+                            <td class="participant">Form</td>
+                            <td class="participant">Weapon</td>
+                            <td class="participant">Belt</td>
+                            <td class="participant">Age</td>
+                            <td class="participant">Judge 1</td>
+                            <td class="participant">Judge 2</td>
+                            <td class="participant">Judge 3</td>
+                            <td class="participant">Sum</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var participant in ViewBag.TournamentDivisions[division])
+                        {
+                            <tr>
+                                <td class="participant">@participant.FirstName @participant.LastName</td>
+                                <td class="participant">@participant.School.Name</td>
+                                <td class="participant">@participant.Style</td>
+                                <td class="participant">@participant.Form</td>
+                                <td class="participant">@participant.Weapon</td>
+                                <td class="participant">@participant.Rank.RankName</td>
+                                <td class="participant">@participant.Age</td>
+                                <td class="participant">&nbsp;</td>
+                                <td class="participant">&nbsp;</td>
+                                <td class="participant">&nbsp;</td>
+                                <td class="participant">&nbsp;</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+}
+

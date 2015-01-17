@@ -1,0 +1,57 @@
+﻿@model Choonbee.Models.DivisionDefault
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>DivisionDefault</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FriendlyId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FriendlyId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RankGroup.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RankGroup.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Genders)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Genders)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AgeGroup.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AgeGroup.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DivisionType.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DivisionType.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateEntered)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateEntered)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.DivisionDefaultId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

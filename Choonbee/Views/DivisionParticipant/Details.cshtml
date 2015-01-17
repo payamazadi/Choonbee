@@ -1,0 +1,36 @@
+﻿@model Choonbee.Models.DivisionParticipant
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>DivisionParticipant</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Division.FriendlyId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Division.FriendlyId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Participant.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Participant.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateEntered)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateEntered)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,70 @@
+﻿@model Choonbee.Models.RankGroup
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>RankGroup</legend>
+
+        @Html.HiddenFor(model => model.RankGroupId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div>
+            @if(ViewBag.TheseRanks != null){
+                foreach (var item in ViewBag.TheseRanks)
+                {
+                    @item.RankName.ToString()
+                    <input type="button" id="btnRemoveRank" value="Remove Rank" onclick="removeRank( @item.RankId );" /><br />
+                }
+            }
+        </div>
+        
+            
+
+        <div>
+            @Html.DropDownList("AllAvailableRanks", ViewBag.AllAvailableRanks as SelectList)
+            <input type="button" id="btnAddRank" value="Add Rank" onclick="addRank();" />
+        </div>
+
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    function addRank() {
+        document.forms[0].action = "/RankGroup/AddRank?rankGroupId=@Model.RankGroupId&rankId=" + $('#AllAvailableRanks').val();
+        document.forms[0].method = "POST";
+        document.forms[0].submit();
+    }
+
+    function removeRank(rank) {
+        document.forms[0].action = "/RankGroup/RemoveRank?rankGroupId=@Model.RankGroupId&rankId=" + rank;
+        document.forms[0].method = "POST";
+        document.forms[0].submit();
+    }
+
+</script>

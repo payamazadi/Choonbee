@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "FormScoring";
+}
+
+<h2>Scores - @ViewBag.Division.FriendlyId</h2>
+@if(ViewBag.ParticipantCount != 0)
+{
+    <table>
+        <tr>
+            <td>Participant ID</td>
+            <td>School</td>
+            <td>Style</td>
+            @*TODO: FIX THESE*@
+            @if(ViewBag.Division.DivisionType.Name == "Forms"){
+                <td>Form</td>
+            }
+            
+            @if(ViewBag.Division.DivisionType.Name == "Weapons"){
+                <td>Weapon</td>
+            }
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>J1</td>
+            <td>J2</td>
+            <td>J3</td>
+            <td>Sum</td>
+            <td></td>
+        </tr>
+    @foreach (var participant in ViewBag.Participants)
+    {
+        <tr>
+            <td>@participant.Key.ParticipantId</td>
+            <td>@participant.Key.School.Name</td>
+            <td>@participant.Key.Style</td>
+            @*TODO: FIX THESE*@
+            @if(ViewBag.Division.DivisionType.Name == "Forms"){
+                <td>@participant.Key.Form</td>
+            }
+            
+            @if(ViewBag.Division.DivisionType.Name == "Weapons"){
+                <td>@participant.Key.Weapon</td>
+            }
+            <td>@participant.Key.FirstName</td>
+            <td>@participant.Key.LastName</td>
+            <td>@participant.Value.JudgeOneScore</td>
+            <td>@participant.Value.JudgeTwoScore</td>
+            <td>@participant.Value.JudgeThreeScore</td>
+            <td>@participant.Value.Sum</td>
+            <td><a href="/DivisionFormScore/Create/@ViewBag.Division.DivisionId?participantId=@participant.Key.ParticipantId">Score</a></td>
+        </tr>
+    }
+        </table>
+    @*<h3><a href="/Division/FormScoring/@ViewBag.Division.DivisionId?showWinners=true">Show Winners</a></h3>*@
+    @Html.Raw(ViewBag.WinnersArea)
+}
+else
+{
+    <p>There are no participants registered for this division..</p>
+}
+<br /><br />
+<a href="/Tournament/ViewDivisions/@ViewBag.Division.TournamentId">Back to Tournament divisions..</a>

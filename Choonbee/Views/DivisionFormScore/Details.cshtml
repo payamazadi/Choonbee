@@ -1,0 +1,57 @@
+﻿@model Choonbee.Models.DivisionFormScore
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>DivisionFormScore</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Division.FriendlyId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Division.FriendlyId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Participant.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Participant.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.JudgeOneScore)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.JudgeOneScore)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.JudgeTwoScore)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.JudgeTwoScore)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.JudgeThreeScore)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.JudgeThreeScore)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateEntered)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateEntered)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

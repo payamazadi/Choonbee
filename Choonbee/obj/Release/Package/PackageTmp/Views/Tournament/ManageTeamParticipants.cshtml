@@ -1,0 +1,10 @@
+﻿@{
+    ViewBag.Title = "ManageTeamParticipants";
+}
+
+<h2>ManageTeamParticipants</h2>
+<h3><a href="/Tournament/AddTeamParticipant/@ViewBag.TournamentId?teamId=@ViewBag.TeamId">Add Participant</a></h3>
+@foreach (var participant in ViewBag.Participants)
+{
+    <p>@participant.FirstName</p>
+}

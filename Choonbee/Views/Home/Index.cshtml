@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Home</h2>
+
+<h3><span style="background-color:yellow;"><a href="@ViewBag.LatestTournamentLinkHref">>>Latest Tournament<<</a></span></h3>
+<br /><br />
+@Html.ActionLink("All Tournaments", "Index", "Tournament")<br />
+@Html.ActionLink("All Participants", "Index", "Participant")
+
+<h3>Settings</h3>
+@Html.ActionLink("Division defaults", "Index", "DivisionDefault")<br />
+@Html.ActionLink("Division types", "Index", "DivisionType")<br />
+@Html.ActionLink("Division statuses", "Index", "DivisionStatus")<br />
+@Html.ActionLink("Age Groups", "Index", "AgeGroup")<br />
+@Html.ActionLink("Rank Groups", "Index", "RankGroup")<br />
+@Html.ActionLink("Ranks", "Index", "Rank")<br />
+@Html.ActionLink("Schools", "Index", "School")<br />
+<br />

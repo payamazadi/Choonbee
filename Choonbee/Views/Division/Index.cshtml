@@ -1,0 +1,9 @@
+﻿@model IEnumerable<String>
+@{
+    ViewBag.Title = "Division";
+}
+
+<h2>Division</h2>
+@foreach (var item in Model) {
+    @Html.DisplayFor(modelItem => item)
+}

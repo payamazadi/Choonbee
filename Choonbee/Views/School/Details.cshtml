@@ -1,0 +1,29 @@
+﻿@model Choonbee.Models.School
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>School</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LocationText)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LocationText)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.SchoolId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,668 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Choonbee.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ChoonbeeStoreContainer">
+    <EntitySet Name="AgeGroups" EntityType="Choonbee.Store.AgeGroups" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="DivisionDefaults" EntityType="Choonbee.Store.DivisionDefaults" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="DivisionFormScores" EntityType="Choonbee.Store.DivisionFormScores" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="DivisionFormTieHistory" EntityType="Choonbee.Store.DivisionFormTieHistory" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="DivisionParticipants" EntityType="Choonbee.Store.DivisionParticipants" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="Divisions" EntityType="Choonbee.Store.Divisions" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="DivisionStatuses" EntityType="Choonbee.Store.DivisionStatuses" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="DivisionTypes" EntityType="Choonbee.Store.DivisionTypes" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="DivisionWinners" EntityType="Choonbee.Store.DivisionWinners" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="Participants" EntityType="Choonbee.Store.Participants" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="RankGroupRanks" EntityType="Choonbee.Store.RankGroupRanks" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="RankGroups" EntityType="Choonbee.Store.RankGroups" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="Ranks" EntityType="Choonbee.Store.Ranks" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="Schools" EntityType="Choonbee.Store.Schools" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="TournamentParticipants" EntityType="Choonbee.Store.TournamentParticipants" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="Tournaments" EntityType="Choonbee.Store.Tournaments" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="TournamentTeamMembers" EntityType="Choonbee.Store.TournamentTeamMembers" store:Type="Tables" Schema="league_pima" />
+    <EntitySet Name="TournamentTeams" EntityType="Choonbee.Store.TournamentTeams" store:Type="Tables" Schema="league_pima" />
+    <AssociationSet Name="DivisionDefaults_ibfk_1" Association="Choonbee.Store.DivisionDefaults_ibfk_1">
+      <End Role="RankGroups" EntitySet="RankGroups" />
+      <End Role="DivisionDefaults" EntitySet="DivisionDefaults" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionDefaults_ibfk_2" Association="Choonbee.Store.DivisionDefaults_ibfk_2">
+      <End Role="AgeGroups" EntitySet="AgeGroups" />
+      <End Role="DivisionDefaults" EntitySet="DivisionDefaults" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionDefaults_ibfk_3" Association="Choonbee.Store.DivisionDefaults_ibfk_3">
+      <End Role="DivisionTypes" EntitySet="DivisionTypes" />
+      <End Role="DivisionDefaults" EntitySet="DivisionDefaults" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionFormScores_ibfk_1" Association="Choonbee.Store.DivisionFormScores_ibfk_1">
+      <End Role="Divisions" EntitySet="Divisions" />
+      <End Role="DivisionFormScores" EntitySet="DivisionFormScores" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionFormScores_ibfk_2" Association="Choonbee.Store.DivisionFormScores_ibfk_2">
+      <End Role="Participants" EntitySet="Participants" />
+      <End Role="DivisionFormScores" EntitySet="DivisionFormScores" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionFormTieHistory_ibfk_1" Association="Choonbee.Store.DivisionFormTieHistory_ibfk_1">
+      <End Role="Participants" EntitySet="Participants" />
+      <End Role="DivisionFormTieHistory" EntitySet="DivisionFormTieHistory" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionFormTieHistory_ibfk_2" Association="Choonbee.Store.DivisionFormTieHistory_ibfk_2">
+      <End Role="Participants" EntitySet="Participants" />
+      <End Role="DivisionFormTieHistory" EntitySet="DivisionFormTieHistory" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionFormTieHistory_ibfk_3" Association="Choonbee.Store.DivisionFormTieHistory_ibfk_3">
+      <End Role="Divisions" EntitySet="Divisions" />
+      <End Role="DivisionFormTieHistory" EntitySet="DivisionFormTieHistory" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionFormTieHistory_ibfk_4" Association="Choonbee.Store.DivisionFormTieHistory_ibfk_4">
+      <End Role="Divisions" EntitySet="Divisions" />
+      <End Role="DivisionFormTieHistory" EntitySet="DivisionFormTieHistory" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionParticipants_ibfk_1" Association="Choonbee.Store.DivisionParticipants_ibfk_1">
+      <End Role="Divisions" EntitySet="Divisions" />
+      <End Role="DivisionParticipants" EntitySet="DivisionParticipants" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionParticipants_ibfk_2" Association="Choonbee.Store.DivisionParticipants_ibfk_2">
+      <End Role="Participants" EntitySet="Participants" />
+      <End Role="DivisionParticipants" EntitySet="DivisionParticipants" />
+    </AssociationSet>
+    <AssociationSet Name="Divisions_ibfk_1" Association="Choonbee.Store.Divisions_ibfk_1">
+      <End Role="RankGroups" EntitySet="RankGroups" />
+      <End Role="Divisions" EntitySet="Divisions" />
+    </AssociationSet>
+    <AssociationSet Name="Divisions_ibfk_2" Association="Choonbee.Store.Divisions_ibfk_2">
+      <End Role="Tournaments" EntitySet="Tournaments" />
+      <End Role="Divisions" EntitySet="Divisions" />
+    </AssociationSet>
+    <AssociationSet Name="Divisions_ibfk_3" Association="Choonbee.Store.Divisions_ibfk_3">
+      <End Role="AgeGroups" EntitySet="AgeGroups" />
+      <End Role="Divisions" EntitySet="Divisions" />
+    </AssociationSet>
+    <AssociationSet Name="Divisions_ibfk_4" Association="Choonbee.Store.Divisions_ibfk_4">
+      <End Role="DivisionTypes" EntitySet="DivisionTypes" />
+      <End Role="Divisions" EntitySet="Divisions" />
+    </AssociationSet>
+    <AssociationSet Name="Divisions_ibfk_5" Association="Choonbee.Store.Divisions_ibfk_5">
+      <End Role="DivisionStatuses" EntitySet="DivisionStatuses" />
+      <End Role="Divisions" EntitySet="Divisions" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionWinners_ibfk_1" Association="Choonbee.Store.DivisionWinners_ibfk_1">
+      <End Role="Divisions" EntitySet="Divisions" />
+      <End Role="DivisionWinners" EntitySet="DivisionWinners" />
+    </AssociationSet>
+    <AssociationSet Name="DivisionWinners_ibfk_2" Association="Choonbee.Store.DivisionWinners_ibfk_2">
+      <End Role="Participants" EntitySet="Participants" />
+      <End Role="DivisionWinners" EntitySet="DivisionWinners" />
+    </AssociationSet>
+    <AssociationSet Name="Participants_ibfk_1" Association="Choonbee.Store.Participants_ibfk_1">
+      <End Role="Schools" EntitySet="Schools" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <AssociationSet Name="Participants_ibfk_3" Association="Choonbee.Store.Participants_ibfk_3">
+      <End Role="Ranks" EntitySet="Ranks" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <AssociationSet Name="RankGroupRanks_ibfk_1" Association="Choonbee.Store.RankGroupRanks_ibfk_1">
+      <End Role="RankGroups" EntitySet="RankGroups" />
+      <End Role="RankGroupRanks" EntitySet="RankGroupRanks" />
+    </AssociationSet>
+    <AssociationSet Name="RankGroupRanks_ibfk_2" Association="Choonbee.Store.RankGroupRanks_ibfk_2">
+      <End Role="Ranks" EntitySet="Ranks" />
+      <End Role="RankGroupRanks" EntitySet="RankGroupRanks" />
+    </AssociationSet>
+    <AssociationSet Name="TournamentParticipants_ibfk_1" Association="Choonbee.Store.TournamentParticipants_ibfk_1">
+      <End Role="Tournaments" EntitySet="Tournaments" />
+      <End Role="TournamentParticipants" EntitySet="TournamentParticipants" />
+    </AssociationSet>
+    <AssociationSet Name="TournamentParticipants_ibfk_2" Association="Choonbee.Store.TournamentParticipants_ibfk_2">
+      <End Role="Participants" EntitySet="Participants" />
+      <End Role="TournamentParticipants" EntitySet="TournamentParticipants" />
+    </AssociationSet>
+    <AssociationSet Name="TournamentParticipants_ibfk_3" Association="Choonbee.Store.TournamentParticipants_ibfk_3">
+      <End Role="Tournaments" EntitySet="Tournaments" />
+      <End Role="TournamentParticipants" EntitySet="TournamentParticipants" />
+    </AssociationSet>
+    <AssociationSet Name="TournamentTeamMembers_ibfk_1" Association="Choonbee.Store.TournamentTeamMembers_ibfk_1">
+      <End Role="TournamentTeams" EntitySet="TournamentTeams" />
+      <End Role="TournamentTeamMembers" EntitySet="TournamentTeamMembers" />
+    </AssociationSet>
+    <AssociationSet Name="TournamentTeamMembers_ibfk_2" Association="Choonbee.Store.TournamentTeamMembers_ibfk_2">
+      <End Role="Participants" EntitySet="Participants" />
+      <End Role="TournamentTeamMembers" EntitySet="TournamentTeamMembers" />
+    </AssociationSet>
+    <AssociationSet Name="TournamentTeams_ibfk_1" Association="Choonbee.Store.TournamentTeams_ibfk_1">
+      <End Role="Tournaments" EntitySet="Tournaments" />
+      <End Role="TournamentTeams" EntitySet="TournamentTeams" />
+    </AssociationSet>
+    <AssociationSet Name="TournamentTeams_ibfk_2" Association="Choonbee.Store.TournamentTeams_ibfk_2">
+      <End Role="Schools" EntitySet="Schools" />
+      <End Role="TournamentTeams" EntitySet="TournamentTeams" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AgeGroups">
+    <Key>
+      <PropertyRef Name="AgeGroupId" />
+    </Key>
+    <Property Name="AgeGroupId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="MinAge" Type="int" Nullable="false" />
+    <Property Name="MaxAge" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DivisionDefaults">
+    <Key>
+      <PropertyRef Name="DivisionDefaultId" />
+    </Key>
+    <Property Name="DivisionDefaultId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FriendlyId" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="RankGroupId" Type="int" Nullable="false" />
+    <Property Name="Genders" Type="varchar" Nullable="false" MaxLength="1" />
+    <Property Name="AgeGroupId" Type="int" Nullable="false" />
+    <Property Name="DivisionTypeId" Type="int" Nullable="false" />
+    <Property Name="DateEntered" Type="date" Nullable="false" />
+    <Property Name="Order" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DivisionFormScores">
+    <Key>
+      <PropertyRef Name="DivisionId" />
+      <PropertyRef Name="ParticipantId" />
+    </Key>
+    <Property Name="DivisionId" Type="int" Nullable="false" />
+    <Property Name="ParticipantId" Type="int" Nullable="false" />
+    <Property Name="JudgeOneScore" Type="float" Nullable="false" />
+    <Property Name="JudgeTwoScore" Type="float" Nullable="false" />
+    <Property Name="JudgeThreeScore" Type="float" Nullable="false" />
+    <Property Name="Sum" Type="float" Nullable="false" />
+    <Property Name="DateEntered" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DivisionFormTieHistory">
+    <Key>
+      <PropertyRef Name="DivisionId" />
+      <PropertyRef Name="ForSecondOrThird" />
+    </Key>
+    <Property Name="DivisionId" Type="int" Nullable="false" />
+    <Property Name="ForSecondOrThird" Type="bit" Nullable="false" />
+    <Property Name="PlayerOneId" Type="int" Nullable="false" />
+    <Property Name="PlayerTwoId" Type="int" Nullable="false" />
+    <Property Name="Winner" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DivisionParticipants">
+    <Key>
+      <PropertyRef Name="DivisionId" />
+      <PropertyRef Name="ParticipantId" />
+    </Key>
+    <Property Name="DivisionId" Type="int" Nullable="false" />
+    <Property Name="ParticipantId" Type="int" Nullable="false" />
+    <Property Name="DateEntered" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Divisions">
+    <Key>
+      <PropertyRef Name="DivisionId" />
+    </Key>
+    <Property Name="DivisionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TournamentId" Type="int" Nullable="false" />
+    <Property Name="ParentDivisionId" Type="int" Nullable="false" />
+    <Property Name="FriendlyId" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="RankGroupId" Type="int" Nullable="false" />
+    <Property Name="AgeGroupId" Type="int" Nullable="false" />
+    <Property Name="DivisionTypeId" Type="int" Nullable="false" />
+    <Property Name="Genders" Type="varchar" Nullable="false" MaxLength="1" />
+    <Property Name="AdditionalidentifierText" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="HadTieBreaker" Type="bool" Nullable="false" />
+    <Property Name="DivisionStatusId" Type="int" Nullable="false" />
+    <Property Name="DateEntered" Type="date" Nullable="false" />
+    <Property Name="Order" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DivisionStatuses">
+    <Key>
+      <PropertyRef Name="DivisionStatusId" />
+    </Key>
+    <Property Name="DivisionStatusId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="DivisionTypes">
+    <Key>
+      <PropertyRef Name="DivisionTypeId" />
+    </Key>
+    <Property Name="DivisionTypeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="DivisionWinners">
+    <Key>
+      <PropertyRef Name="DivisionId" />
+      <PropertyRef Name="ParticipantId" />
+    </Key>
+    <Property Name="DivisionId" Type="int" Nullable="false" />
+    <Property Name="ParticipantId" Type="int" Nullable="false" />
+    <Property Name="Rank" Type="int" Nullable="false" />
+    <Property Name="Points" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Participants">
+    <Key>
+      <PropertyRef Name="ParticipantId" />
+    </Key>
+    <Property Name="ParticipantId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Gender" Type="varchar" Nullable="false" MaxLength="1" />
+    <Property Name="RankId" Type="int" Nullable="false" />
+    <Property Name="HeightFeet" Type="int" Nullable="false" />
+    <Property Name="HeightInches" Type="int" Nullable="false" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="Style" Type="varchar" MaxLength="100" />
+    <Property Name="Form" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="Weapon" Type="varchar" MaxLength="100" />
+    <Property Name="SchoolId" Type="int" Nullable="false" />
+    <Property Name="DateEntered" Type="date" Nullable="false" />
+    <Property Name="DateModified" Type="date" Nullable="false" />
+    <Property Name="Active" Type="bool" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RankGroupRanks">
+    <Key>
+      <PropertyRef Name="RankGroupId" />
+      <PropertyRef Name="RankId" />
+    </Key>
+    <Property Name="RankGroupId" Type="int" Nullable="false" />
+    <Property Name="RankId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RankGroups">
+    <Key>
+      <PropertyRef Name="RankGroupId" />
+    </Key>
+    <Property Name="RankGroupId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Ranks">
+    <Key>
+      <PropertyRef Name="RankId" />
+    </Key>
+    <Property Name="RankId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="RankName" Type="varchar" Nullable="false" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Schools">
+    <Key>
+      <PropertyRef Name="SchoolId" />
+    </Key>
+    <Property Name="SchoolId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="LocationText" Type="varchar" Nullable="false" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="TournamentParticipants">
+    <Key>
+      <PropertyRef Name="TournamentId" />
+      <PropertyRef Name="ParticipantId" />
+    </Key>
+    <Property Name="TournamentId" Type="int" Nullable="false" />
+    <Property Name="ParticipantId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tournaments">
+    <Key>
+      <PropertyRef Name="TournamentId" />
+    </Key>
+    <Property Name="TournamentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="200" />
+    <Property Name="DateEntered" Type="date" Nullable="false" />
+    <Property Name="DateHeld" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TournamentTeamMembers">
+    <Key>
+      <PropertyRef Name="TeamId" />
+      <PropertyRef Name="ParticipantId" />
+    </Key>
+    <Property Name="TeamId" Type="int" Nullable="false" />
+    <Property Name="ParticipantId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TournamentTeams">
+    <Key>
+      <PropertyRef Name="TeamId" />
+    </Key>
+    <Property Name="TeamId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TournamentId" Type="int" Nullable="false" />
+    <Property Name="SchoolId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="255" />
+  </EntityType>
+  <Association Name="DivisionDefaults_ibfk_1">
+    <End Role="RankGroups" Type="Choonbee.Store.RankGroups" Multiplicity="1" />
+    <End Role="DivisionDefaults" Type="Choonbee.Store.DivisionDefaults" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RankGroups">
+        <PropertyRef Name="RankGroupId" />
+      </Principal>
+      <Dependent Role="DivisionDefaults">
+        <PropertyRef Name="RankGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionDefaults_ibfk_2">
+    <End Role="AgeGroups" Type="Choonbee.Store.AgeGroups" Multiplicity="1" />
+    <End Role="DivisionDefaults" Type="Choonbee.Store.DivisionDefaults" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AgeGroups">
+        <PropertyRef Name="AgeGroupId" />
+      </Principal>
+      <Dependent Role="DivisionDefaults">
+        <PropertyRef Name="AgeGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionDefaults_ibfk_3">
+    <End Role="DivisionTypes" Type="Choonbee.Store.DivisionTypes" Multiplicity="1" />
+    <End Role="DivisionDefaults" Type="Choonbee.Store.DivisionDefaults" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DivisionTypes">
+        <PropertyRef Name="DivisionTypeId" />
+      </Principal>
+      <Dependent Role="DivisionDefaults">
+        <PropertyRef Name="DivisionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionFormScores_ibfk_1">
+    <End Role="Divisions" Type="Choonbee.Store.Divisions" Multiplicity="1" />
+    <End Role="DivisionFormScores" Type="Choonbee.Store.DivisionFormScores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Divisions">
+        <PropertyRef Name="DivisionId" />
+      </Principal>
+      <Dependent Role="DivisionFormScores">
+        <PropertyRef Name="DivisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionFormScores_ibfk_2">
+    <End Role="Participants" Type="Choonbee.Store.Participants" Multiplicity="1" />
+    <End Role="DivisionFormScores" Type="Choonbee.Store.DivisionFormScores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Participants">
+        <PropertyRef Name="ParticipantId" />
+      </Principal>
+      <Dependent Role="DivisionFormScores">
+        <PropertyRef Name="ParticipantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionFormTieHistory_ibfk_1">
+    <End Role="Participants" Type="Choonbee.Store.Participants" Multiplicity="1" />
+    <End Role="DivisionFormTieHistory" Type="Choonbee.Store.DivisionFormTieHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Participants">
+        <PropertyRef Name="ParticipantId" />
+      </Principal>
+      <Dependent Role="DivisionFormTieHistory">
+        <PropertyRef Name="PlayerOneId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionFormTieHistory_ibfk_2">
+    <End Role="Participants" Type="Choonbee.Store.Participants" Multiplicity="1" />
+    <End Role="DivisionFormTieHistory" Type="Choonbee.Store.DivisionFormTieHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Participants">
+        <PropertyRef Name="ParticipantId" />
+      </Principal>
+      <Dependent Role="DivisionFormTieHistory">
+        <PropertyRef Name="PlayerTwoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionFormTieHistory_ibfk_3">
+    <End Role="Divisions" Type="Choonbee.Store.Divisions" Multiplicity="1" />
+    <End Role="DivisionFormTieHistory" Type="Choonbee.Store.DivisionFormTieHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Divisions">
+        <PropertyRef Name="DivisionId" />
+      </Principal>
+      <Dependent Role="DivisionFormTieHistory">
+        <PropertyRef Name="DivisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionFormTieHistory_ibfk_4">
+    <End Role="Divisions" Type="Choonbee.Store.Divisions" Multiplicity="1" />
+    <End Role="DivisionFormTieHistory" Type="Choonbee.Store.DivisionFormTieHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Divisions">
+        <PropertyRef Name="DivisionId" />
+      </Principal>
+      <Dependent Role="DivisionFormTieHistory">
+        <PropertyRef Name="DivisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionParticipants_ibfk_1">
+    <End Role="Divisions" Type="Choonbee.Store.Divisions" Multiplicity="1" />
+    <End Role="DivisionParticipants" Type="Choonbee.Store.DivisionParticipants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Divisions">
+        <PropertyRef Name="DivisionId" />
+      </Principal>
+      <Dependent Role="DivisionParticipants">
+        <PropertyRef Name="DivisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionParticipants_ibfk_2">
+    <End Role="Participants" Type="Choonbee.Store.Participants" Multiplicity="1" />
+    <End Role="DivisionParticipants" Type="Choonbee.Store.DivisionParticipants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Participants">
+        <PropertyRef Name="ParticipantId" />
+      </Principal>
+      <Dependent Role="DivisionParticipants">
+        <PropertyRef Name="ParticipantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Divisions_ibfk_1">
+    <End Role="RankGroups" Type="Choonbee.Store.RankGroups" Multiplicity="1" />
+    <End Role="Divisions" Type="Choonbee.Store.Divisions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RankGroups">
+        <PropertyRef Name="RankGroupId" />
+      </Principal>
+      <Dependent Role="Divisions">
+        <PropertyRef Name="RankGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Divisions_ibfk_2">
+    <End Role="Tournaments" Type="Choonbee.Store.Tournaments" Multiplicity="1" />
+    <End Role="Divisions" Type="Choonbee.Store.Divisions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tournaments">
+        <PropertyRef Name="TournamentId" />
+      </Principal>
+      <Dependent Role="Divisions">
+        <PropertyRef Name="TournamentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Divisions_ibfk_3">
+    <End Role="AgeGroups" Type="Choonbee.Store.AgeGroups" Multiplicity="1" />
+    <End Role="Divisions" Type="Choonbee.Store.Divisions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AgeGroups">
+        <PropertyRef Name="AgeGroupId" />
+      </Principal>
+      <Dependent Role="Divisions">
+        <PropertyRef Name="AgeGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Divisions_ibfk_4">
+    <End Role="DivisionTypes" Type="Choonbee.Store.DivisionTypes" Multiplicity="1" />
+    <End Role="Divisions" Type="Choonbee.Store.Divisions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DivisionTypes">
+        <PropertyRef Name="DivisionTypeId" />
+      </Principal>
+      <Dependent Role="Divisions">
+        <PropertyRef Name="DivisionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Divisions_ibfk_5">
+    <End Role="DivisionStatuses" Type="Choonbee.Store.DivisionStatuses" Multiplicity="1" />
+    <End Role="Divisions" Type="Choonbee.Store.Divisions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DivisionStatuses">
+        <PropertyRef Name="DivisionStatusId" />
+      </Principal>
+      <Dependent Role="Divisions">
+        <PropertyRef Name="DivisionStatusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionWinners_ibfk_1">
+    <End Role="Divisions" Type="Choonbee.Store.Divisions" Multiplicity="1" />
+    <End Role="DivisionWinners" Type="Choonbee.Store.DivisionWinners" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Divisions">
+        <PropertyRef Name="DivisionId" />
+      </Principal>
+      <Dependent Role="DivisionWinners">
+        <PropertyRef Name="DivisionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DivisionWinners_ibfk_2">
+    <End Role="Participants" Type="Choonbee.Store.Participants" Multiplicity="1" />
+    <End Role="DivisionWinners" Type="Choonbee.Store.DivisionWinners" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Participants">
+        <PropertyRef Name="ParticipantId" />
+      </Principal>
+      <Dependent Role="DivisionWinners">
+        <PropertyRef Name="ParticipantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Participants_ibfk_1">
+    <End Role="Schools" Type="Choonbee.Store.Schools" Multiplicity="1" />
+    <End Role="Participants" Type="Choonbee.Store.Participants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schools">
+        <PropertyRef Name="SchoolId" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="SchoolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Participants_ibfk_3">
+    <End Role="Ranks" Type="Choonbee.Store.Ranks" Multiplicity="1" />
+    <End Role="Participants" Type="Choonbee.Store.Participants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ranks">
+        <PropertyRef Name="RankId" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="RankId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RankGroupRanks_ibfk_1">
+    <End Role="RankGroups" Type="Choonbee.Store.RankGroups" Multiplicity="1" />
+    <End Role="RankGroupRanks" Type="Choonbee.Store.RankGroupRanks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RankGroups">
+        <PropertyRef Name="RankGroupId" />
+      </Principal>
+      <Dependent Role="RankGroupRanks">
+        <PropertyRef Name="RankGroupId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RankGroupRanks_ibfk_2">
+    <End Role="Ranks" Type="Choonbee.Store.Ranks" Multiplicity="1" />
+    <End Role="RankGroupRanks" Type="Choonbee.Store.RankGroupRanks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ranks">
+        <PropertyRef Name="RankId" />
+      </Principal>
+      <Dependent Role="RankGroupRanks">
+        <PropertyRef Name="RankId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TournamentParticipants_ibfk_1">
+    <End Role="Tournaments" Type="Choonbee.Store.Tournaments" Multiplicity="1" />
+    <End Role="TournamentParticipants" Type="Choonbee.Store.TournamentParticipants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tournaments">
+        <PropertyRef Name="TournamentId" />
+      </Principal>
+      <Dependent Role="TournamentParticipants">
+        <PropertyRef Name="TournamentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TournamentParticipants_ibfk_2">
+    <End Role="Participants" Type="Choonbee.Store.Participants" Multiplicity="1" />
+    <End Role="TournamentParticipants" Type="Choonbee.Store.TournamentParticipants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Participants">
+        <PropertyRef Name="ParticipantId" />
+      </Principal>
+      <Dependent Role="TournamentParticipants">
+        <PropertyRef Name="ParticipantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TournamentParticipants_ibfk_3">
+    <End Role="Tournaments" Type="Choonbee.Store.Tournaments" Multiplicity="1" />
+    <End Role="TournamentParticipants" Type="Choonbee.Store.TournamentParticipants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tournaments">
+        <PropertyRef Name="TournamentId" />
+      </Principal>
+      <Dependent Role="TournamentParticipants">
+        <PropertyRef Name="TournamentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TournamentTeamMembers_ibfk_1">
+    <End Role="TournamentTeams" Type="Choonbee.Store.TournamentTeams" Multiplicity="1" />
+    <End Role="TournamentTeamMembers" Type="Choonbee.Store.TournamentTeamMembers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TournamentTeams">
+        <PropertyRef Name="TeamId" />
+      </Principal>
+      <Dependent Role="TournamentTeamMembers">
+        <PropertyRef Name="TeamId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TournamentTeamMembers_ibfk_2">
+    <End Role="Participants" Type="Choonbee.Store.Participants" Multiplicity="1" />
+    <End Role="TournamentTeamMembers" Type="Choonbee.Store.TournamentTeamMembers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Participants">
+        <PropertyRef Name="ParticipantId" />
+      </Principal>
+      <Dependent Role="TournamentTeamMembers">
+        <PropertyRef Name="ParticipantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TournamentTeams_ibfk_1">
+    <End Role="Tournaments" Type="Choonbee.Store.Tournaments" Multiplicity="1" />
+    <End Role="TournamentTeams" Type="Choonbee.Store.TournamentTeams" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tournaments">
+        <PropertyRef Name="TournamentId" />
+      </Principal>
+      <Dependent Role="TournamentTeams">
+        <PropertyRef Name="TournamentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TournamentTeams_ibfk_2">
+    <End Role="Schools" Type="Choonbee.Store.Schools" Multiplicity="1" />
+    <End Role="TournamentTeams" Type="Choonbee.Store.TournamentTeams" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Schools">
+        <PropertyRef Name="SchoolId" />
+      </Principal>
+      <Dependent Role="TournamentTeams">
+        <PropertyRef Name="SchoolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

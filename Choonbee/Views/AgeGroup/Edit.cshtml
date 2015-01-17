@@ -1,0 +1,54 @@
+﻿@model Choonbee.Models.AgeGroup
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>AgeGroup</legend>
+
+        @Html.HiddenFor(model => model.AgeGroupId)
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MinAge)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MinAge)
+            @Html.ValidationMessageFor(model => model.MinAge)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaxAge)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxAge)
+            @Html.ValidationMessageFor(model => model.MaxAge)
+        </div>
+
+        
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

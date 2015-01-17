@@ -1,0 +1,16 @@
+﻿@model ICollection<Choonbee.Models.TeamScore>
+
+@{
+    ViewBag.Title = "TeamScores";
+}
+
+<h2>Team Scores</h2>
+
+@foreach (var team in Model)
+{
+    <p>@team.SchoolName - @team.TeamName - @team.Score</p>
+    foreach (var participant in team.Participants.Values.OrderBy(p => p.Score).ThenBy(p => p.Name))
+    {
+        <p>@participant.Name - @participant.Score</p>
+    }
+}

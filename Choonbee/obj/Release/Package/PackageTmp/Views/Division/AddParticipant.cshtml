@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "AddParticipant";
+}
+
+<h2>AddParticipant</h2>
+@if (ViewBag.AllParticipants.Count == 0)
+{
+    <p> No participants eligible to be added. All eligible participants have already been added to this division.</p>
+}
+else
+{
+    using (Html.BeginForm()) {
+        <fieldset>
+            <legend>Participant</legend>
+            @Html.ValidationSummary(true)
+            @Html.DropDownList("AllParticipants", ViewBag.AllParticipants as SelectList)
+            <p>
+                <input type="submit" value="Add Participant to Division" />
+            </p>
+        </fieldset>
+    }
+}
+
+<a href="/Division/Participants/@ViewBag.DivisionId">Return to division participants..</a><br />
+<a href="/Tournament/Details/@ViewBag.TournamentId">Return to tournament..</a>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

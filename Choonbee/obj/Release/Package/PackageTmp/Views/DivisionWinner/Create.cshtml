@@ -1,0 +1,65 @@
+﻿@model Choonbee.Models.DivisionWinner
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+@ViewBag.Message
+@if(ViewBag.HasCount)
+{
+    using (Html.BeginForm()) {
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>DivisionWinner</legend>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.DivisionId, "Division")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("DivisionId", String.Empty)
+                @Html.ValidationMessageFor(model => model.DivisionId)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ParticipantId, "Participant")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("ParticipantId", String.Empty)
+                @Html.ValidationMessageFor(model => model.ParticipantId)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Rank)
+                Valid values are one of the following:<br />
+                1<br />
+                2<br />
+                3<br />
+                4<br />
+                (These correspond to first, second, third, and fourth place.)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Rank)
+                @Html.ValidationMessageFor(model => model.Rank)
+            </div>
+
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+    }
+}
+else
+{
+ <p>Cannot add any more winners for this division.<br />Perhap they've all already been entered.<br />If so, <a href="/Division/Close/@ViewBag.TheDivisionId">click here to close the division.</a>
+
+ </p>   
+}
+<div>
+    <a href="@ViewBag.RetLink">Back to Division</a>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

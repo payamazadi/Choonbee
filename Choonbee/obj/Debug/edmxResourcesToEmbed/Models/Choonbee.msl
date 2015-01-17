@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ChoonbeeStoreContainer" CdmEntityContainer="ChoonbeeEdmx">
+    <EntitySetMapping Name="Schools">
+      <EntityTypeMapping TypeName="Choonbee.School">
+        <MappingFragment StoreEntitySet="Schools">
+          <ScalarProperty Name="LocationText" ColumnName="LocationText" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RankGroups">
+      <EntityTypeMapping TypeName="Choonbee.RankGroup">
+        <MappingFragment StoreEntitySet="RankGroups">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="RankGroupId" ColumnName="RankGroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ranks">
+      <EntityTypeMapping TypeName="Choonbee.Rank">
+        <MappingFragment StoreEntitySet="Ranks">
+          <ScalarProperty Name="RankName" ColumnName="RankName" />
+          <ScalarProperty Name="RankId" ColumnName="RankId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tournaments">
+      <EntityTypeMapping TypeName="Choonbee.Tournament">
+        <MappingFragment StoreEntitySet="Tournaments">
+          <ScalarProperty Name="DateHeld" ColumnName="DateHeld" />
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TournamentId" ColumnName="TournamentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="RankGroupRanks" TypeName="Choonbee.RankGroupRanks" StoreEntitySet="RankGroupRanks">
+      <EndProperty Name="Rank">
+        <ScalarProperty Name="RankId" ColumnName="RankId" />
+      </EndProperty>
+      <EndProperty Name="RankGroup">
+        <ScalarProperty Name="RankGroupId" ColumnName="RankGroupId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="AgeGroups">
+      <EntityTypeMapping TypeName="Choonbee.AgeGroup">
+        <MappingFragment StoreEntitySet="AgeGroups">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MaxAge" ColumnName="MaxAge" />
+          <ScalarProperty Name="MinAge" ColumnName="MinAge" />
+          <ScalarProperty Name="AgeGroupId" ColumnName="AgeGroupId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DivisionTypes">
+      <EntityTypeMapping TypeName="Choonbee.DivisionType">
+        <MappingFragment StoreEntitySet="DivisionTypes">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DivisionTypeId" ColumnName="DivisionTypeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DivisionStatuses">
+      <EntityTypeMapping TypeName="Choonbee.DivisionStatus">
+        <MappingFragment StoreEntitySet="DivisionStatuses">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="DivisionStatusId" ColumnName="DivisionStatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DivisionFormScores">
+      <EntityTypeMapping TypeName="Choonbee.DivisionFormScore">
+        <MappingFragment StoreEntitySet="DivisionFormScores">
+          <ScalarProperty Name="Sum" ColumnName="Sum" />
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+          <ScalarProperty Name="JudgeThreeScore" ColumnName="JudgeThreeScore" />
+          <ScalarProperty Name="JudgeTwoScore" ColumnName="JudgeTwoScore" />
+          <ScalarProperty Name="JudgeOneScore" ColumnName="JudgeOneScore" />
+          <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+          <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DivisionFormTieHistories">
+      <EntityTypeMapping TypeName="Choonbee.DivisionFormTieHistory">
+        <MappingFragment StoreEntitySet="DivisionFormTieHistory">
+          <ScalarProperty Name="Winner" ColumnName="Winner" />
+          <ScalarProperty Name="PlayerTwoId" ColumnName="PlayerTwoId" />
+          <ScalarProperty Name="PlayerOneId" ColumnName="PlayerOneId" />
+          <ScalarProperty Name="ForSecondOrThird" ColumnName="ForSecondOrThird" />
+          <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DivisionWinners">
+      <EntityTypeMapping TypeName="Choonbee.DivisionWinner">
+        <MappingFragment StoreEntitySet="DivisionWinners">
+          <ScalarProperty Name="Points" ColumnName="Points" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+          <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TournamentTeams">
+      <EntityTypeMapping TypeName="Choonbee.TournamentTeam">
+        <MappingFragment StoreEntitySet="TournamentTeams">
+          <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="TournamentId" ColumnName="TournamentId" />
+          <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DivisionDefaults">
+      <EntityTypeMapping TypeName="Choonbee.DivisionDefault">
+        <MappingFragment StoreEntitySet="DivisionDefaults">
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+          <ScalarProperty Name="DivisionTypeId" ColumnName="DivisionTypeId" />
+          <ScalarProperty Name="AgeGroupId" ColumnName="AgeGroupId" />
+          <ScalarProperty Name="Genders" ColumnName="Genders" />
+          <ScalarProperty Name="RankGroupId" ColumnName="RankGroupId" />
+          <ScalarProperty Name="FriendlyId" ColumnName="FriendlyId" />
+          <ScalarProperty Name="DivisionDefaultId" ColumnName="DivisionDefaultId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Divisions">
+      <EntityTypeMapping TypeName="Choonbee.Division">
+        <MappingFragment StoreEntitySet="Divisions">
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+          <ScalarProperty Name="DivisionStatusId" ColumnName="DivisionStatusId" />
+          <ScalarProperty Name="HadTieBreaker" ColumnName="HadTieBreaker" />
+          <ScalarProperty Name="AdditionalidentifierText" ColumnName="AdditionalidentifierText" />
+          <ScalarProperty Name="Genders" ColumnName="Genders" />
+          <ScalarProperty Name="DivisionTypeId" ColumnName="DivisionTypeId" />
+          <ScalarProperty Name="AgeGroupId" ColumnName="AgeGroupId" />
+          <ScalarProperty Name="RankGroupId" ColumnName="RankGroupId" />
+          <ScalarProperty Name="FriendlyId" ColumnName="FriendlyId" />
+          <ScalarProperty Name="ParentDivisionId" ColumnName="ParentDivisionId" />
+          <ScalarProperty Name="TournamentId" ColumnName="TournamentId" />
+          <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Participants">
+      <EntityTypeMapping TypeName="Choonbee.Participant">
+        <MappingFragment StoreEntitySet="Participants">
+          <ScalarProperty Name="Form" ColumnName="Form" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+          <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
+          <ScalarProperty Name="Weapon" ColumnName="Weapon" />
+          <ScalarProperty Name="Style" ColumnName="Style" />
+          <ScalarProperty Name="HeightInches" ColumnName="HeightInches" />
+          <ScalarProperty Name="HeightFeet" ColumnName="HeightFeet" />
+          <ScalarProperty Name="RankId" ColumnName="RankId" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="TournamentParticipants" TypeName="Choonbee.TournamentParticipants" StoreEntitySet="TournamentParticipants">
+      <EndProperty Name="Participant">
+        <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+      </EndProperty>
+      <EndProperty Name="Tournament">
+        <ScalarProperty Name="TournamentId" ColumnName="TournamentId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TournamentTeamMembers" TypeName="Choonbee.TournamentTeamMembers" StoreEntitySet="TournamentTeamMembers">
+      <EndProperty Name="Participant">
+        <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+      </EndProperty>
+      <EndProperty Name="TournamentTeam">
+        <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="DivisionParticipants">
+      <EntityTypeMapping TypeName="Choonbee.DivisionParticipant">
+        <MappingFragment StoreEntitySet="DivisionParticipants">
+          <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
+          <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+          <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

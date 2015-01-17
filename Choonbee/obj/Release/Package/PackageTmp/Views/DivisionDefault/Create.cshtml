@@ -1,0 +1,76 @@
+﻿@model Choonbee.Models.DivisionDefault
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>DivisionDefault</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FriendlyId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FriendlyId)
+            @Html.ValidationMessageFor(model => model.FriendlyId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DivisionTypeId, "DivisionType")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("DivisionTypeId", String.Empty)
+            @Html.ValidationMessageFor(model => model.DivisionTypeId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AgeGroupId, "AgeGroup")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("AgeGroupId", String.Empty)
+            @Html.ValidationMessageFor(model => model.AgeGroupId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RankGroupId, "RankGroup")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("RankGroupId", String.Empty)
+            @Html.ValidationMessageFor(model => model.RankGroupId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Genders)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Genders)
+            @Html.ValidationMessageFor(model => model.Genders)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Order)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order)
+            @Html.ValidationMessageFor(model => model.Order)
+        </div>
+
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
