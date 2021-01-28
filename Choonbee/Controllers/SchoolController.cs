@@ -37,8 +37,9 @@ namespace Choonbee.Controllers
         //
         // GET: /School/Create
 
-        public ActionResult Create()
+        public ActionResult Create(string ret = "")
         {
+            ViewBag.Ret = ret;
             return View();
         }
 
@@ -46,13 +47,16 @@ namespace Choonbee.Controllers
         // POST: /School/Create
 
         [HttpPost]
-        public ActionResult Create(School school)
+        public ActionResult Create(School school, string ret = "")
         {
             if (ModelState.IsValid)
             {
                 db.Schools.Add(school);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ret == "")
+                    return RedirectToAction("Index");
+                else
+                    return Redirect(ret);
             }
 
             return View(school);

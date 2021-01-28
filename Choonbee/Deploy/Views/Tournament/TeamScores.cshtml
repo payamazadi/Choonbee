@@ -1,0 +1,27 @@
+﻿@model ICollection<Choonbee.Models.TeamScore>
+
+@{
+    ViewBag.Title = "TeamScores";
+}
+
+<h2>Team Scores</h2>
+<p>Last Updated: <b>@DateTime.Now</b></p>
+
+@foreach (var team in Model)
+{
+    <p><h1>@team.SchoolName - @team.TeamName - @team.Score</h1></p>
+    foreach (var participant in team.Participants.Values.OrderBy(p => p.Score).ThenBy(p => p.Name))
+    {
+        <p><b>@participant.Name - @participant.Score</b></p>
+        var divisionWinners = participant.Participant.DivisionWinners.Where(d => d.Division.Tournament.TournamentId == ViewBag.TournamentId);
+        String divisionsWon = "";
+        foreach (var divisionWinner in divisionWinners)
+        {
+            divisionsWon = divisionWinner.Division.FriendlyId + "(" + divisionWinner.Division.RankGroup.Name + ", " + divisionWinner.Division.AgeGroup.Name + "," + divisionWinner.Division.DivisionType.Name + "): " + divisionWinner.Points + " (rank " + divisionWinner.Rank + ")";
+            <p>---@divisionsWon</p>
+        }
+        
+    }
+}
+
+<span style="color: red"><b>Warning: This feature is experminent only. There may be inaccuracies.</b></span>

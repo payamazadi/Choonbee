@@ -1,14 +1,24 @@
-﻿html {
+﻿@media all {
+	.page-break {display: none; }
+}
+
+@media print {
+	.page-break { display:block; page-break-before: always; }
+}
+
+html {
     background-color: #e2e2e2;
     margin: 0;
     padding: 0;
+    font-size:16px;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
 }
 
 body {
-    background-color: #fff;
+    background-color: #000;
     border-top: solid 10px #000;
     color: #333;
-    font-size: .85em;
+    font-size: .9em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
@@ -99,15 +109,15 @@ h5, h6 {
 }
 
 #body {
-    background-color: #efeeef;
+    background-color: #fff;
     clear: both;
     padding-bottom: 35px;
 }
 
     .main-content {
-        background: url("../Images/accent.png") no-repeat;
+        /*background: url("../Images/accent.png") no-repeat;*/
         padding-left: 10px;
-        padding-top: 30px;
+        padding-top: 3px;
     }
 
     .featured + .main-content {
@@ -115,7 +125,7 @@ h5, h6 {
     }
 
 header .content-wrapper {
-    padding-top: 20px; 
+/**    padding-top: 20px; */
 }
 
 footer {
@@ -130,8 +140,8 @@ footer {
 ----------------------------------------------------------*/
 .site-title {
     color: #c8c8c8;
-    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
-    font-size: 1.6em;
+    /*font-family: Rockwell, Consolas, "Courier New", Courier, monospace;*/
+    font-size: 1em;
     margin: 0;
 }
 
@@ -195,12 +205,12 @@ ul#menu {
 
         ul#menu li a {
             background: none;
-            color: #999;
+            color: #fff;
             text-decoration: none;
         }
 
         ul#menu li a:hover {
-            color: #333;
+            color: #666;
             text-decoration: none;
         }
 
@@ -603,7 +613,7 @@ tr.pager td {
     ----------------------------------------------------------*/
     header .float-left,
     header .float-right {
-        float: none;
+        /*float: none;*/
     }
 
     /* logo */
@@ -767,3 +777,35 @@ tr.border_bottom td
 {
     border-bottom:1pt solid black;
 }
+
+nav {
+    padding-top: 20px;
+}
+
+tr:nth-child(even) {
+    background:#eee;
+}
+
+tr:nth-child(odd) {
+    background: #fff;
+}
+
+.division-1 {
+    background-color:#fcd03b;
+}
+
+.division-2 {
+    background:#fa3c24;
+}
+
+.division-3 {
+    background:purple;
+}
+
+
+.division-4 {
+    background-color:#00a260;
+}
+
+
+

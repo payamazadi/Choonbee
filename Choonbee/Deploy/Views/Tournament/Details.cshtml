@@ -1,0 +1,82 @@
+﻿@model Choonbee.Models.Tournament
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Name - Tournament Details</h2>
+
+<fieldset>
+    <legend>Tournament</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => model.SeasonId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => Model.Season.Name)
+    </div> 
+         
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateEntered)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateEntered)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateHeld)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateHeld)
+    </div>
+</fieldset>
+
+<h3>@Html.ActionLink("View Divisions", "ViewDivisions", new { id=Model.TournamentId })</h3>
+<h3>@Html.ActionLink("View Scores", "TeamScores", new { id=Model.TournamentId })</h3>
+
+<h3>Participants</h3>
+<a href="/Tournament/AddExistingParticipant/@Model.TournamentId">Add Existing Participant to Tournament</a><br />
+<a href="/Participant/Create?tournamentId=@Model.TournamentId">Add New Participant to Tournament</a><br />
+
+@if(Model.Participants.Count != 0){
+    <table>
+        <tr class="border_bottom">
+            @*TODO: add active/inactive for tournament/participant registration, to avoid complications of deleting from a tournament*@
+            <td><b>ID</b></td><td><b>First</b></td><td><b>Last</b></td><td><b>Rank</b></td><td><b>Age</b></td><td><b>Gender</b></td><td><b>Height</b></td><td></td><td><td></td>                                                                                                                                        </td>
+        </tr>
+    @foreach (var participant in Model.Participants){
+        <tr class="border_bottom">
+            <td>@participant.ParticipantId</td>
+            <td>@participant.FirstName</td>
+            <td>@participant.LastName</td>
+            <td>@participant.Rank.RankName</td>
+            <td>@participant.Age</td>
+            <td>@participant.Gender</td>
+            <td>@participant.HeightFeet'@participant.HeightInches </td>
+            <td>@Html.ActionLink("Manage Participating Divisions", "ManageParticipantDivision", new {id=Model.TournamentId, participantid = participant.ParticipantId})</td>
+            <td>@Html.ActionLink("Edit Participant", "Edit", "Participant", new { id = participant.ParticipantId, ret = "/Tournament/Details/" + Model.TournamentId }, "")</td>
+            <td>@Html.ActionLink("Remove from Tournament", "RemoveParticipant", new {id=Model.TournamentId, participantid = participant.ParticipantId})</td>
+        </tr>
+    }
+        </table>
+}
+else{
+    <p>No participants in this tournament yet.</p>
+}
+
+<p>
+    @Html.ActionLink("Manage Teams", "ManageTeams", new { id = Model.TournamentId }) |
+    @*Html.ActionLink("Manage Participants", "ManageParticipants", new { id=Model.TournamentId })*@
+    @*@Html.ActionLink("Edit", "Edit", new { id=Model.TournamentId }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<span style="display:none;">@Html.ActionLink("Populate from default", "Populate", new { id=Model.TournamentId })</span><br />
+<a href="/Tournament/DumpRegistration/@ViewBag.TournamentId">Dump Registration</a>

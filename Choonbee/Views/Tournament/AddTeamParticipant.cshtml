@@ -4,7 +4,7 @@
 
 <h2>AddTeamParticipant</h2>
 
-@if(ViewBag.AllParticipants.Count != 0)
+@if (ViewBag.AllParticipants.Count != 0 && ViewBag.ExistingCount < 10)
 {
     using (Html.BeginForm()) {
         @Html.ValidationSummary(true)

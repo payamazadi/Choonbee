@@ -116,6 +116,16 @@
       <End Role="School" EntitySet="Schools" />
       <End Role="TournamentTeam" EntitySet="TournamentTeams" />
     </AssociationSet>
+    <EntitySet Name="Seasons" EntityType="Choonbee.Season" />
+    <AssociationSet Name="Tournaments_ibfk_1" Association="Choonbee.Tournaments_ibfk_1">
+      <End Role="Season" EntitySet="Seasons" />
+      <End Role="Tournament" EntitySet="Tournaments" />
+    </AssociationSet>
+    <EntitySet Name="SparringEntries" EntityType="Choonbee.SparringEntry" />
+    <AssociationSet Name="SparringEntries_ibfk_1" Association="Choonbee.SparringEntries_ibfk_1">
+      <End Role="Division" EntitySet="Divisions" />
+      <End Role="SparringEntry" EntitySet="SparringEntries" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="School">
     <Key>
@@ -136,6 +146,7 @@
     <NavigationProperty Name="Ranks" Relationship="Choonbee.RankGroupRanks" FromRole="RankGroup" ToRole="Rank" />
     <NavigationProperty Name="DivisionDefaults" Relationship="Choonbee.DivisionDefaults_ibfk_1" FromRole="RankGroup" ToRole="DivisionDefault" />
     <NavigationProperty Name="Divisions" Relationship="Choonbee.Divisions_ibfk_1" FromRole="RankGroup" ToRole="Division" />
+    <Property Type="Int32" Name="SortOrder" Nullable="false" />
   </EntityType>
   <EntityType Name="Rank">
     <Key>
@@ -157,6 +168,8 @@
     <NavigationProperty Name="TournamentTeams" Relationship="Choonbee.TournamentTeams_ibfk_1" FromRole="Tournament" ToRole="TournamentTeam" />
     <NavigationProperty Name="Divisions" Relationship="Choonbee.Divisions_ibfk_2" FromRole="Tournament" ToRole="Division" />
     <NavigationProperty Name="Participants" Relationship="Choonbee.TournamentParticipants" FromRole="Tournament" ToRole="Participant" />
+    <Property Type="Int32" Name="SeasonId" Nullable="false" />
+    <NavigationProperty Name="Season" Relationship="Choonbee.Tournaments_ibfk_1" FromRole="Tournament" ToRole="Season" />
   </EntityType>
   <Association Name="RankGroupRanks">
     <End Type="Choonbee.RankGroup" Role="RankGroup" Multiplicity="*" />
@@ -299,6 +312,8 @@
     <NavigationProperty Name="DivisionWinners" Relationship="Choonbee.DivisionWinners_ibfk_1" FromRole="Division" ToRole="DivisionWinner" />
     <NavigationProperty Name="DivisionParticipants" Relationship="Choonbee.DivisionParticipants_ibfk_1" FromRole="Division" ToRole="DivisionParticipant" />
     <Property Type="Int32" Name="Order" Nullable="false" />
+    <NavigationProperty Name="SparringEntries" Relationship="Choonbee.SparringEntries_ibfk_1" FromRole="Division" ToRole="SparringEntry" />
+    <Property Type="Int32" Name="NumSplits" />
   </EntityType>
   <Association Name="DivisionDefaults_ibfk_2">
     <End Type="Choonbee.AgeGroup" Role="AgeGroup" Multiplicity="1" />
@@ -459,7 +474,6 @@
     <Property Type="Int32" Name="SchoolId" Nullable="false" />
     <Property Type="DateTime" Name="DateEntered" Nullable="false" Precision="0" />
     <Property Type="DateTime" Name="DateModified" Nullable="false" Precision="0" />
-    <Property Type="Boolean" Name="Active" Nullable="false" />
     <NavigationProperty Name="DivisionFormScores" Relationship="Choonbee.DivisionFormScores_ibfk_2" FromRole="Participant" ToRole="DivisionFormScore" />
     <NavigationProperty Name="DivisionFormTieHistories" Relationship="Choonbee.DivisionFormTieHistory_ibfk_1" FromRole="Participant" ToRole="DivisionFormTieHistory" />
     <NavigationProperty Name="DivisionFormTieHistories1" Relationship="Choonbee.DivisionFormTieHistory_ibfk_2" FromRole="Participant" ToRole="DivisionFormTieHistory" />
@@ -472,6 +486,7 @@
     <Property Type="Int32" Name="Age" Nullable="false" />
     <NavigationProperty Name="DivisionParticipants" Relationship="Choonbee.DivisionParticipants_ibfk_2" FromRole="Participant" ToRole="DivisionParticipant" />
     <Property Type="String" Name="Form" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="League" Nullable="false" />
   </EntityType>
   <Association Name="DivisionFormScores_ibfk_2">
     <End Type="Choonbee.Participant" Role="Participant" Multiplicity="1" />
@@ -597,6 +612,51 @@
       </Principal>
       <Dependent Role="TournamentTeam">
         <PropertyRef Name="SchoolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Season">
+    <Key>
+      <PropertyRef Name="SeasonId" />
+    </Key>
+    <Property Type="Int32" Name="SeasonId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="Description" Nullable="false" MaxLength="5000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Tournaments" Relationship="Choonbee.Tournaments_ibfk_1" FromRole="Season" ToRole="Tournament" />
+  </EntityType>
+  <Association Name="Tournaments_ibfk_1">
+    <End Type="Choonbee.Season" Role="Season" Multiplicity="1" />
+    <End Type="Choonbee.Tournament" Role="Tournament" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Season">
+        <PropertyRef Name="SeasonId" />
+      </Principal>
+      <Dependent Role="Tournament">
+        <PropertyRef Name="SeasonId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="SparringEntry">
+    <Key>
+      <PropertyRef Name="SparringEntryId" />
+    </Key>
+    <Property Type="Int32" Name="SparringEntryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="DivisionId" Nullable="false" />
+    <Property Type="Int32" Name="ParticipantId" Nullable="false" />
+    <Property Type="Int32" Name="Round" Nullable="false" />
+    <Property Type="Int32" Name="Order" Nullable="false" />
+    <Property Type="Boolean" Name="Completed" Nullable="false" />
+    <NavigationProperty Name="Division" Relationship="Choonbee.SparringEntries_ibfk_1" FromRole="SparringEntry" ToRole="Division" />
+  </EntityType>
+  <Association Name="SparringEntries_ibfk_1">
+    <End Type="Choonbee.Division" Role="Division" Multiplicity="1" />
+    <End Type="Choonbee.SparringEntry" Role="SparringEntry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Division">
+        <PropertyRef Name="DivisionId" />
+      </Principal>
+      <Dependent Role="SparringEntry">
+        <PropertyRef Name="DivisionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

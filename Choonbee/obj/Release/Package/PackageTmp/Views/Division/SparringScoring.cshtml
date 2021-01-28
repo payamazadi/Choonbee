@@ -1,0 +1,142 @@
+﻿@model Choonbee.Models.Match
+@{
+    ViewBag.Title = "SparringScoring";
+}
+
+<h2>@ViewBag.Heading</h2>
+@if (ViewBag.Completed)
+{
+    <h3>Division completed!</h3>
+    @Html.Raw(ViewBag.WinnersTable)
+}
+else
+{
+    using (Html.BeginForm()) {
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Season</legend>
+
+            <input type="hidden" name="WinnerId" value="0" id="WinnerId" />
+            <input type="hidden" name="PlayerAId" value="@Model.PlayerAId" />
+            <input type="hidden" name="PlayerBId" value="@Model.PlayerBId" />
+            <input type="hidden" name="Round" value="@Model.Round" />
+            <input type="hidden" name="MaxRounds" value="@Model.MaxRounds" />
+            <input type="hidden" name="DivisionId" value="@Model.DivisionId" />
+
+            <table>
+                <tr>
+                    <td id="left">
+                        <h1><span style="background-color: blue;">@ViewBag.PlayerAName</span></h1>
+                        <center>
+                            <font size="25"><span id="left-points">0</span></font>
+                            <button type="button" onclick="changePoints('left',1);">+</button>
+                            <button type="button" onclick="changePoints('left',-1);">-</button>
+                        </center>
+
+
+                    </td>
+
+                    <td id="right">
+                        <h1><span style="background-color: red;">@ViewBag.PlayerBName</span></h1>
+                        <center>
+                            <font size="25"><span id="right-points">0</span></font>
+                            <button type="button" onclick="changePoints('right',1);">+</button>
+                            <button type="button" onclick="changePoints('right',-1);">-</button>
+                        </center>
+                    </td>
+                </tr>
+            </table>
+
+            <h1 id="timer"><time>00:02:00</time></h1>
+            <button type="button" id="start">start</button>
+            <button type="button" id="stop">stop</button>
+            <button type="button" id="clear">clear</button>
+            <!--
+            <button type="button" onclick="swap()">Swap Sides</button>;
+            (show winner)-->
+            <p>
+                <hr /><br /><br />
+                <input type="submit" value="SUBMIT WINNER" onclick="setWinner();" />
+            </p>
+        </fieldset>
+    }
+    <!--
+    <script>
+        function swap() {
+            var tempLeft = document.getElementById("left").innerHTML;
+            var tempRight = document.getElementById("right").innerHTML;
+
+            document.getElementById("left").innerHTML = tempRight;
+            document.getElementById("right").innerHTML = templeft;
+            return false;
+        }
+    </script>
+        -->
+    
+    <script>
+        function changePoints(side, count) {
+            var sideElement = document.getElementById(side + "-points");
+            var currentPoints = parseInt(sideElement.innerHTML);
+            currentPoints += parseInt(count);
+            sideElement.innerHTML = currentPoints;
+        }
+    </script>
+
+    <script>
+        var h1 = document.getElementById("timer");
+        start = document.getElementById('start'),
+        stop = document.getElementById('stop'),
+        clear = document.getElementById('clear'),
+        seconds = 0, minutes = 2, hours = 0,
+        t=null;
+
+        function add() {
+            seconds--;
+            if (seconds < 0) {
+                seconds = 59;
+                minutes--;
+                if (minutes < 0) {
+                    minutes = 59;
+                    hours--;
+                }
+            }
+
+            h1.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+            timer();
+        }
+        function timer() {
+            t = setTimeout(add, 1000);
+        }
+        //timer();
+
+
+        /* Start button */
+        start.onclick = timer;
+
+        /* Stop button */
+        stop.onclick = function () {
+            clearTimeout(t);
+        }
+
+        /* Clear button */
+        clear.onclick = function () {
+            h1.textContent = "00:02:00";
+            seconds = 0; minutes = 2; hours = 0;
+        }
+    </script>
+    
+    <script>
+        function setWinner() {
+            var leftPoints = parseInt(document.getElementById("left-points").innerHTML);
+            var rightPoints = parseInt(document.getElementById("right-points").innerHTML);
+
+            if(leftPoints > rightPoints)
+                document.getElementById("WinnerId").value = @Model.PlayerAId + 0;
+            else
+                document.getElementById("WinnerId").value = @Model.PlayerBId +0;
+            return true;
+        }
+    </script>
+}

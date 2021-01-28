@@ -46,7 +46,7 @@ namespace Choonbee.Controllers
                 var divisions = db.Divisions.Where(d => d.DivisionId == id).ToList();
                 var division = divisions.First();
                 ViewBag.DivisionId = new SelectList(divisions, "DivisionId", "FriendlyId", division.DivisionId);
-
+                ViewBag.Division = division;
                 var divisionParticipants = db.DivisionParticipants.Where(d => d.DivisionId == id).ToList();
                 var scoredParticipants = (from p1 in db.DivisionWinners.ToList().Where(dw => dw.DivisionId == id)
                                           join p2 in divisionParticipants on p1.ParticipantId equals p2.ParticipantId
@@ -58,8 +58,10 @@ namespace Choonbee.Controllers
 
                 var participants = divisionParticipants2.ToList().Select(p => p.Participant).Select(p2 => new SelectListItem { Value = p2.ParticipantId.ToString(), Text = p2.FirstName + " " + p2.LastName }).ToList();
                 //.Select(r => new SelectListItem { Value = r.ParticipantId.ToString(), Text = r.FirstName + "," + r.LastName }).ToList();
+                
                 ViewBag.ParticipantId = participants;
                 ViewBag.HasCount = participants.ToList().Count != 0;
+                
                 ViewBag.RetLink = "/Tournament/ViewDivisions/" + division.TournamentId;
                 ViewBag.TheDivisionId = id;
                 if (message.Equals("") == false)
@@ -68,19 +70,16 @@ namespace Choonbee.Controllers
             else
             {
                 var divisions = db.Divisions.ToList();
-                //TODO: YIKES!!! show ALL participants? EVER!? This is unacceptable for anything after this tournament.
-                //But we really shouldn't need this 'else' condition anyway. This is for manual/admin use only as a hard system override
                 var participants = db.DivisionParticipants.ToList().Select(p => new SelectListItem { Value = p.ParticipantId.ToString(), Text = p.Participant.FirstName + " " + p.Participant.LastName }).ToList();
-                
+
+                //Duplicate lines of code from if condition.
                 ViewBag.ParticipantId = participants;
-                ViewBag.Divisionid = new SelectList(divisions, "DivisionId", "FriendlyId");
-                //Duplicate line of code from if condition.
                 ViewBag.HasCount = participants.ToList().Count != 0;
+
+                ViewBag.Divisionid = new SelectList(divisions, "DivisionId", "FriendlyId");
+                
                 ViewBag.RetLink = "/DivisionWinner";
             }
-
-            
-            
             return View();
         }
 
@@ -144,9 +143,11 @@ namespace Choonbee.Controllers
                 return RedirectToAction("Index");
             //}
             
+            /*
             ViewBag.DivisionId = new SelectList(db.Divisions, "DivisionId", "FriendlyId", divisionwinner.DivisionId);
             ViewBag.ParticipantId = new SelectList(db.Participants, "ParticipantId", "FirstName", divisionwinner.ParticipantId);
             return View(divisionwinner);
+             */
         }
 
         //

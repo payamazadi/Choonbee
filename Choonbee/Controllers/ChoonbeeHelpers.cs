@@ -15,7 +15,7 @@ namespace Choonbee.Controllers
 
         public static Tournament getLatestTournament()
         {
-            return db.Tournaments/*.Where(m => DateTime.Today <= m.DateHeld)*/.OrderBy(m => m.DateHeld).First();
+            return db.Tournaments/*.Where(m => DateTime.Today <= m.DateHeld)*/.OrderByDescending(m => m.DateHeld).First();
         }
 
         public static string getLatestTournamentLinkHref()
@@ -39,9 +39,9 @@ namespace Choonbee.Controllers
                 case 1:
                     return 5;
                 case 2:
-                    return 4;
-                case 3:
                     return 3;
+                case 3:
+                    return 2;
                 case 4:
                     return 1;
                 default:

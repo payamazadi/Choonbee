@@ -40,5 +40,7 @@ namespace Choonbee.Models
         public DbSet<Division> Divisions { get; set; }
         public DbSet<Participant> Participants { get; set; }
         public DbSet<DivisionParticipant> DivisionParticipants { get; set; }
+        public DbSet<Season> Seasons { get; set; }
+        public DbSet<SparringEntry> SparringEntries { get; set; }
     }
 }

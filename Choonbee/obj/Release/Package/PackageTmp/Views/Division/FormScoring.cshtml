@@ -2,34 +2,34 @@
     ViewBag.Title = "FormScoring";
 }
 
-<h2>Scores - @ViewBag.Division.FriendlyId</h2>
+<h2>Scores - @ViewBag.Division.FriendlyId (@ViewBag.Division.Genders, @ViewBag.Division.RankGroup.Name, @ViewBag.Division.AgeGroup.Name)</h2>
+<h3><a href="/Division/Participants/@ViewBag.Division.DivisionId">Manage Registration</a></h3>
+<h3><span style="background:green; color:white">@ViewBag.ParticipantCount</span> Participants</h3>
 @if(ViewBag.ParticipantCount != 0)
 {
     <table>
         <tr>
-            <td>Participant ID</td>
-            <td>School</td>
-            <td>Style</td>
+            <td><b>School</b></td>
+            <td><b>Style</b></td>
             @*TODO: FIX THESE*@
             @if(ViewBag.Division.DivisionType.Name == "Forms"){
-                <td>Form</td>
+                <td><b>Form</b></td>
             }
             
             @if(ViewBag.Division.DivisionType.Name == "Weapons"){
-                <td>Weapon</td>
+                <td><b>Weapon</b></td>
             }
-            <td>First Name</td>
-            <td>Last Name</td>
-            <td>J1</td>
-            <td>J2</td>
-            <td>J3</td>
-            <td>Sum</td>
+            <td><b>First Name</b></td>
+            <td><b>Last Name</b></td>
+            <td><b>J1</b></td>
+            <td><b>J2</b></td>
+            <td><b>J3</b></td>
+            <td><b>Sum</b></td>
             <td></td>
         </tr>
     @foreach (var participant in ViewBag.Participants)
     {
         <tr>
-            <td>@participant.Key.ParticipantId</td>
             <td>@participant.Key.School.Name</td>
             <td>@participant.Key.Style</td>
             @*TODO: FIX THESE*@

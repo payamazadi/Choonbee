@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "ManageBracket";
+}
+
+<h2>ManageBracket</h2>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="/Scripts/jquery-1.10.2.js"></script>
+<script src="/Scripts/jquery-ui-1.11.4.js"></script>
+
+<font size="5">
+<!--
+<ul id="sortable">
+<li id="1">Item 1</li>
+<li id="2">Item 2</li>
+    <hr />
+<li id="3">Item 3</li>
+<li id="4">Item 4</li>
+    <hr />
+<li id="5">Item 5</li>
+</ul>
+    -->
+
+@Html.Raw(ViewBag.Participants)
+</font>
+
+
+<button onclick="submitForm();">Commit</button>
+
+<script>$("#sortable").sortable();</script>
+
+<script>
+    function submitForm() {
+        var data = $("#sortable").sortable("toArray");
+        
+        $.ajax({
+            //data: { operations: ["fuckyou","fuckyoumore","diaf"] },
+            data: { participants: data, id: @ViewBag.DivisionId},
+            type: 'POST',
+            url: '/Division/ManageBracket/@ViewBag.DivisionId',
+            traditional: true,
+            success: function(response){
+                parent.document.getElementById("Successful").value = true;
+                alert("Staged as @ViewBag.FriendlyId");
+                window.location = "/Tournament/ViewDivisions/@ViewBag.TournamentId";
+            }
+        });
+    }
+
+    
+</script>

@@ -1,0 +1,22 @@
+﻿@model Choonbee.Models.Rank
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Rank</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RankName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RankName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.RankId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ChoonbeeEdmx-Web.config Connection String" description="ChoonbeeEdmx Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.Choonbee.csdl|res://*/Models.Choonbee.ssdl|res://*/Models.Choonbee.msl;provider=MySql.Data.MySqlClient;provider connection string=&quot;server=choonbee;user id=choonbee;password=D3al3r0n;database=league_pima&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Payam\\Dropbox\\nspace\\Code\\Choonbee\\Choonbee\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ChoonbeeEdmx']/@connectionString" />
+  </parameter>
+</parameters>

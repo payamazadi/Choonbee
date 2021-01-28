@@ -28,6 +28,7 @@
             @Html.ValidationMessageFor(model => model.LocationText)
         </div>
 
+        <input type="hidden" name="ret" value="@ViewBag.Ret" />
         <p>
             <input type="submit" value="Create" />
         </p>

@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Choonbee.Models;
 using Choonbee.App_Start;
+using Newtonsoft.Json;
 
 namespace Choonbee.Controllers
 {
@@ -41,7 +42,7 @@ namespace Choonbee.Controllers
         [HttpGet]
         public ActionResult Create(int? tournamentId)
         {
-            ViewBag.SchoolId = new SelectList(db.Schools, "SchoolId", "Name");
+            ViewBag.SchoolId = new SelectList(db.Schools, "SchoolId", "Name").OrderBy(s => s.Text);
             ViewBag.RankId = new SelectList(db.Ranks, "RankId", "RankName");
             ViewBag.TournamentId = tournamentId.GetValueOrDefault();
             return View();
@@ -58,7 +59,7 @@ namespace Choonbee.Controllers
             {
                 participant.DateEntered = DateTime.Now;
                 participant.DateModified = DateTime.Now;
-
+                participant.Gender = participant.Gender.ToUpper();
                 db.Participants.Add(participant);
                 var a = db.GetValidationErrors();
                 db.SaveChanges();
@@ -85,7 +86,7 @@ namespace Choonbee.Controllers
         //
         // GET: /Participant/Edit/5
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id = 0, string ret = "")
         {
             Participant participant = db.Participants.Find(id);
             if (participant == null)
@@ -94,6 +95,7 @@ namespace Choonbee.Controllers
             }
             ViewBag.SchoolId = new SelectList(db.Schools, "SchoolId", "Name", participant.SchoolId);
             ViewBag.RankId = new SelectList(db.Ranks, "RankId", "RankName", participant.RankId);
+            ViewBag.Ret = ret;
             return View(participant);
         }
 
@@ -101,17 +103,22 @@ namespace Choonbee.Controllers
         // POST: /Participant/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Participant participant)
+        public ActionResult Edit(Participant participant, string ret)
         {
             if (ModelState.IsValid)
             {
+                participant.Gender = participant.Gender.ToUpper();
                 db.Entry(participant).State = EntityState.Modified;
                 var p = db.GetValidationErrors();
                 db.SaveChanges();
+
+                if (ret.Equals(String.Empty) == false)
+                    return Redirect(ret);
                 return RedirectToAction("Index");
             }
             ViewBag.SchoolId = new SelectList(db.Schools, "SchoolId", "Name", participant.SchoolId);
             ViewBag.RankId = new SelectList(db.Ranks, "RankId", "RankName", participant.RankId);
+
             return View(participant);
         }
 
@@ -138,6 +145,27 @@ namespace Choonbee.Controllers
             db.Participants.Remove(participant);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+
+        public ActionResult GetParticipant(int id)
+        {
+            var participant = from p in db.Participants
+                              where p.ParticipantId == id
+                              select new
+                              {
+                                  ParticipantId = p.ParticipantId,
+                                  SchoolName = p.School.Name,
+                                  FirstName = p.FirstName,
+                                  LastName = p.LastName,
+                                  HeightFeet = p.HeightFeet,
+                                  HeightInches = p.HeightInches,
+                                  BeltName = p.Rank.RankName,
+                                  Gender = p.Gender,
+                                  Age = p.Age
+                              };
+
+            return Json(JsonConvert.SerializeObject(participant), JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

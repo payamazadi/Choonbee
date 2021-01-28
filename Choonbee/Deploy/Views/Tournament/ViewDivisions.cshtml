@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Choonbee.Models.Division>
+@{
+    ViewBag.Title = "ViewDivisions";
+}
+
+<h2>@ViewBag.Heading</h2>
+
+
+
+<table>
+    <tr class="border_bottom">
+        <td>Friendly ID</td><td>Rank Group</td><td>Age Group</td><td>Genders</td><td>Status</td><td>#Ppl</td><td></td><td></td><td></td>
+    </tr>
+
+    @foreach(var item in Model){
+        if(item.DivisionParticipants.Count > 0)
+        {
+        
+            //TODO: yet again
+            var color = "none";
+            if (item.DivisionStatus.Name == "Staged")
+            {
+                color = "#00a260";
+            }
+            else if (item.DivisionStatus.Name == "Open")
+            {
+                color = "#fcd03b";
+            }
+            else if (item.DivisionStatus.Name == "In Progress")
+            {
+                color = "#fa3c24";
+            }
+            else
+            {
+                color = "none";
+            }
+            
+            
+            <tr class="border_bottom" style="background-color:@color;">
+                <td>@item.FriendlyId</td>
+                <td>@item.RankGroup.Name</td>
+                <td>@item.AgeGroup.Name</td>
+                <td>@item.Genders</td>
+                <td>@item.DivisionStatus.Name</td>
+                <td>@item.DivisionParticipants.Count</td>
+                <td><a href="/Division/Participants/@item.DivisionId">Manage Division Registration</a></td>
+                <td><a href="/Division/Stage/@item.DivisionId">Stage!</a></td>
+                <td><a href="/Division/Score/@item.DivisionId">Launch!</a></td>
+            </tr>
+        }
+    }
+</table>

@@ -1,4 +1,4 @@
-﻿@model LinkedList<Choonbee.Models.Participant>
+﻿@model List<Choonbee.Models.Participant>
 @{
     ViewBag.Title = "Participants";
 }
@@ -6,19 +6,22 @@
 <h2>@ViewBag.Heading</h2>
 <h3>Manage Participants</h3>
 
-<h4><a href="/Division/AddParticipant/@ViewBag.DivisionId">Add Participants</a></h4>
-<h4><a href="/Division/Split/@ViewBag.DivisionId">Split Division</a></h4>
+<h4><a href="/Division/AddParticipant/@ViewBag.DivisionId">Add Participants</a> - <a href="/Division/Split/@ViewBag.DivisionId">Split Division</a> - <a href="/Division/Stage/@ViewBag.DivisionId">Stage Division</a></h4>
 
+@if(ViewBag.Sparring)
+{    
+    <h4><a href="/Division/ParticipantsSparring/@ViewBag.DivisionId">Manage Buckets</a></h4>
+}
     @if(Model != null){
+        <h3><span style="background:green; color:white">@Model.Count</span> Participants</h3>
         <table>
             <tr>
-                <td>First</td><td>Last</td><td>Rank</td><td>Age</td><td>Gender</td><td>Height</td><td></td>
+                <td>Name</td><td>Rank</td><td>Age</td><td>Gender</td><td>Height</td><td></td>
             </tr>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.FirstName</td>
-                    <td>@item.LastName</td>
+                    <td><a href="/Tournament/ManageParticipantDivision/@ViewBag.TournamentId?participantid=@item.ParticipantId">@item.FirstName @item.LastName</a></td>
                     <td>@item.Rank.RankName</td>
                     <td>@item.Age</td>
                     <td>@item.Gender</td>
@@ -33,4 +36,16 @@
         <p>No participants found.</p>
     }
 <br />
-<a href="/Tournament/Details/@ViewBag.TournamentId">Return to tournament..</a>
+<hr />
+@using (Html.BeginForm()) {
+        <fieldset>
+            <legend>Add participant</legend>
+            @Html.ValidationSummary(true)
+            @Html.DropDownList("AllParticipants", ViewBag.AllParticipants as SelectList)
+            <p>
+                <input type="submit" value="Add Participant to Division" />
+            </p>
+        </fieldset>
+}
+<a href="/Division/Unstage/@ViewBag.DivisionId">Unstage division..</a><br />
+<a href="/Tournament/ViewDivisions/@ViewBag.TournamentId">Return to divisions..</a>

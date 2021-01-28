@@ -23,6 +23,14 @@
         </div>
 
         <div class="editor-label">
+            @Html.LabelFor(model => model.SeasonId, "Season")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SeasonId", String.Empty)
+            @Html.ValidationMessageFor(model => model.SeasonId)
+        </div> 
+
+        <div class="editor-label">
             @Html.LabelFor(model => model.DateEntered)
         </div>
         <div class="editor-field">

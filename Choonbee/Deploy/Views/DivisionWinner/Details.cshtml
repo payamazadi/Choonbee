@@ -1,0 +1,43 @@
+﻿@model Choonbee.Models.DivisionWinner
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>DivisionWinner</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Division.FriendlyId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Division.FriendlyId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Participant.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Participant.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Rank)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Rank)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Points)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Points)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

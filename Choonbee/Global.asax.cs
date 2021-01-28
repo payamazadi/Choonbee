@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Optimization;
+using Choonbee.Models;
 
 namespace Choonbee
 {
@@ -17,10 +18,21 @@ namespace Choonbee
         {
             AreaRegistration.RegisterAllAreas();
 
+            ModelBinders.Binders.Add(typeof(AgeGroup), new AgeGroupBinder());
+            //ModelBinders.Binders.Add(typeof(School), new SchoolBinder());
+            ModelBinders.Binders.Add(typeof(List<Participant>), new ParticipantListBinder());
+            ModelBinders.Binders.Add(typeof(Division), new DivisionBinder());
+
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        protected void Session_Start(Object sender, EventArgs e)
+        {
+            Session["DivisionFilter"] = 0;
+            Session["ToggleAdults"] = 1;
         }
     }
 }

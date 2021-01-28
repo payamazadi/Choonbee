@@ -19,7 +19,7 @@ namespace Choonbee.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Tournaments.ToList());
+            return View(db.Tournaments.ToList().OrderByDescending(t => t.DateHeld));
         }
 
         //
@@ -41,6 +41,7 @@ namespace Choonbee.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.SeasonId = new SelectList(db.Seasons, "SeasonId", "Name");
             return View();
         }
 
@@ -67,6 +68,8 @@ namespace Choonbee.Controllers
         public ActionResult Edit(int id = 0)
         {
             Tournament tournament = db.Tournaments.Find(id);
+            ViewBag.SeasonId = new SelectList(db.Seasons, "SeasonId", "Name", tournament.SeasonId);
+
             if (tournament == null)
             {
                 return HttpNotFound();
@@ -86,6 +89,7 @@ namespace Choonbee.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.SeasonId = new SelectList(db.Seasons, "SeasonId", "Name", tournament.SeasonId);
             return View(tournament);
         }
 
@@ -95,6 +99,7 @@ namespace Choonbee.Controllers
         public ActionResult Delete(int id = 0)
         {
             Tournament tournament = db.Tournaments.Find(id);
+            ViewBag.SeasonId = new SelectList(db.Seasons, "SeasonId", "Name", tournament.SeasonId);
             if (tournament == null)
             {
                 return HttpNotFound();
@@ -111,6 +116,7 @@ namespace Choonbee.Controllers
             Tournament tournament = db.Tournaments.Find(id);
             db.Tournaments.Remove(tournament);
             db.SaveChanges();
+            ViewBag.SeasonId = new SelectList(db.Seasons, "SeasonId", "Name", tournament.SeasonId);
             return RedirectToAction("Index");
         }
 
@@ -151,15 +157,65 @@ namespace Choonbee.Controllers
             return RedirectToAction("Details", new { id = id });
         }
 
-        public ActionResult ViewDivisions(int id = 0)
+        public ActionResult ViewDivisions(int id = 0, int DivisionType=0, int ToggleAdults=0)
         {
             var tournament = db.Tournaments.Find(id);
             ViewBag.Heading = tournament.Name + " " + tournament.DateHeld + " - Divisions";
+            ViewBag.TournamentId = id;
+            /*
+             * <td>@item.FriendlyId</td>
+            <td>@item.RankGroup.Name</td>
+            <td>@item.AgeGroup.Name</td>
+            <td>@item.Genders</td>
+            <td>@item.DivisionStatus.Name</td>
+            <td>@participantCount</td>
+            <td><a href="/Division/Participants/@item.DivisionId">Manage Division Registration</a></td>
+            <td><a href="/Division/Stage/@item.DivisionId">Stage!</a></td>
+            <td><a href="/Division/Score/@item.DivisionId">Launch!</a></td>
+             */
 
-            return View(tournament.Divisions.ToList().OrderByDescending(t => t.DivisionStatus.Name).ThenBy(t2 => t2.Order));
+            var divisions = db.Divisions.Where(d => d.TournamentId == id && d.DivisionParticipants.Count > 0).
+                Select(d => new TournamentDivision 
+                { 
+                    RankGroupName = d.RankGroup.Name,
+                    Genders = d.Genders,
+                    AgeGroup = d.AgeGroup,
+                    DivisionId = d.DivisionId,
+                    DivisionStatusName = d.DivisionStatus.Name,
+                    FriendlyId = d.FriendlyId,
+                    Order = d.Order,
+                    ParticipantCount = d.DivisionParticipants.Count,
+                    DivisionType = d.DivisionType,
+                    ParentDivisionId = d.ParentDivisionId
+                }).
+                OrderByDescending(t => t.DivisionStatusName).ThenBy(t2 => t2.Order).ToList();
+
+            if ((int)Session["DivisionFilter"] != 0 && DivisionType == 0)
+                DivisionType = (int)Session["DivisionFilter"];
+            else if (DivisionType == -1)
+            {
+                Session["DivisionFilter"] = 0;
+                DivisionType = 0;
+            }
+            else Session["DivisionFilter"] = DivisionType;
+
+            if ((int)Session["ToggleAdults"] == 1 && ToggleAdults == 1)
+                Session["ToggleAdults"] = 0;
+            else if ((int)Session["ToggleAdults"] == 0 && ToggleAdults == 1)
+                Session["ToggleAdults"] = 1;
+            
+
+            if ((int)Session["ToggleAdults"] == 0)
+                divisions = divisions.Where(d => d.AgeGroup.AgeGroupId != 5 && d.AgeGroup.AgeGroupId != 6).ToList();
+            
+
+            if(DivisionType == 0)
+                return View(divisions);
+            else
+                return View(divisions.Where(d => d.DivisionType.DivisionTypeId == DivisionType).ToList().OrderByDescending(t => t.DivisionStatusName).ThenBy(t2 => t2.Order).ToList());
         }
 
-        public ActionResult AddExistingParticipant(int id = 0)
+        public ActionResult AddExistingParticipant(int id = 0, string ret = "")
         {
             var tournament = db.Tournaments.Find(id);
             ViewBag.AllParticipants = db.Participants.ToList().OrderBy(r => r.FirstName).Select(r => new SelectListItem { Value = r.ParticipantId.ToString(), Text = r.FirstName + " " + r.LastName }).ToList();
@@ -169,11 +225,12 @@ namespace Choonbee.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddExistingParticipant(int id = 0, int AllParticipants = 0)
+        public ActionResult AddExistingParticipant(int id = 0, int AllParticipants = 0, string ret = "")
         {
-            db.Tournaments.Find(id).Participants.Add(db.Participants.Find(AllParticipants));
+            var participant = db.Participants.Find(AllParticipants);
+            db.Tournaments.Find(id).Participants.Add(participant);
             db.SaveChanges();
-            return RedirectToAction("Details", new { id = id });
+            return RedirectToAction("ManageParticipantDivision", new { id = id, participantId = participant.ParticipantId });
         }
 
         public ActionResult RemoveParticipant(int id = 0, int participantId = 0)
@@ -191,19 +248,22 @@ namespace Choonbee.Controllers
             var participant = db.Participants.Find(participantId);
             var tournament = db.Tournaments.Find(id);
 
+            //all qualified divisions
             var allDivisions = tournament.Divisions.Where(d => d.AgeGroup.MinAge <= participant.Age && d.AgeGroup.MaxAge >= participant.Age && (d.Genders == "E" || d.Genders == participant.Gender) && d.RankGroup.Ranks.Contains(participant.Rank)).ToList();
             
-            var myDivisionRegistrations = db.DivisionParticipants.Where(d => d.ParticipantId == participantId);
+            //var myDivisionRegistrations = db.DivisionParticipants.Where(d => d.ParticipantId == participantId);
+            var myDivisionRegistrations =
+                from dp in db.DivisionParticipants
+                join d in db.Divisions on dp.DivisionId equals d.DivisionId
+                where d.TournamentId == tournament.TournamentId && dp.ParticipantId == participant.ParticipantId
+                select dp;
             
             var myDivisions = new LinkedList<Division>();
             var allDivisionsPruned = new LinkedList<Division>();
-            
-            //TODO: wow what a horrid way to do this.
+
             foreach (var registration in myDivisionRegistrations)
-            {
-                myDivisions.AddLast(allDivisions.Where(d => d.DivisionId == registration.DivisionId).First());
-            }
-            
+                myDivisions.AddLast(registration.Division);
+
             foreach (var division in allDivisions)
             {
                 if (myDivisions.Contains(division) == false)
@@ -216,6 +276,7 @@ namespace Choonbee.Controllers
             ViewBag.TournamentName = tournament.Name;
             ViewBag.TournamentId = id;
             ViewBag.ParticipantId = participantId;
+            ViewBag.Participant = participant;
             return View();
         }
 
@@ -248,7 +309,7 @@ namespace Choonbee.Controllers
         {
             //list teams. links to show teams, with dropdown of participants, not already on that team.
             var tournaments = db.Tournaments.Find(id);
-            var teams = (from team in db.TournamentTeams
+            var teams = (from team in db.TournamentTeams where team.TournamentId == tournaments.TournamentId
                          join school in db.Schools on team.SchoolId equals school.SchoolId
                          select new { school=school, team=team }).ToList().OrderBy(t => t.school.Name).ToList();
             
@@ -294,12 +355,14 @@ namespace Choonbee.Controllers
                                join p2 in tournament.Participants on p1.ParticipantId equals p2.ParticipantId
                                select p1;
             */
-            var participants = tournament.Participants.ToList();
+            //var participants = team.School.Participants;
+            var participants = tournament.Participants.Where(p => p.SchoolId == team.SchoolId && p.League);
 
             //subtract out participants already on this team
             var existingParticipants = team.Participants.Select(p => p.ParticipantId).ToList();
+            ViewBag.ExistingCount = existingParticipants.Count;
             //get all participants from this school on a team in this tournament
-            var allSchoolTeams = db.TournamentTeams.Where(tt => team.SchoolId == team.SchoolId).ToList();
+            var allSchoolTeams = db.TournamentTeams.Where(tt => tt.SchoolId == team.SchoolId && tt.TournamentId == tournament.TournamentId).ToList();
 
             List<int> participatingParticipants = new List<int>();
             foreach (var schoolTeams in allSchoolTeams)
@@ -359,10 +422,11 @@ namespace Choonbee.Controllers
 
         public ActionResult TeamScores(int id = 0)
         {
+            ViewBag.TournamentId = id;
             var query = from dw in db.DivisionWinners
                         from tt in db.TournamentTeams
                         from p in tt.Participants
-                        where tt.TournamentId == id && dw.ParticipantId == p.ParticipantId
+                        where tt.TournamentId == id && dw.ParticipantId == p.ParticipantId && dw.Division.TournamentId == id// && p.League
                         select new { Team = tt, Participant = p, Score = dw.Points };
 
             var teamsAdded = new List<int>();
@@ -389,18 +453,18 @@ namespace Choonbee.Controllers
                 if (team.Participants.Keys.Contains(item.Participant.ParticipantId))
                 {
                     var pt = team.Participants[item.Participant.ParticipantId];
-                    team.Participants[item.Participant.ParticipantId] = new ParticipantScore { ParticipantId = pt.ParticipantId, Name = pt.Name, Score = pt.Score + item.Score };
+                    team.Participants[item.Participant.ParticipantId] = new ParticipantScore { ParticipantId = pt.ParticipantId, Name = pt.Name, Score = pt.Score + item.Score, Participant = item.Participant };
                 }
                 else
                 {
-                    team.Participants.Add(item.Participant.ParticipantId, new ParticipantScore { ParticipantId = item.Participant.ParticipantId, Name = item.Participant.FirstName + " " + item.Participant.LastName, Score = item.Score });
+                    team.Participants.Add(item.Participant.ParticipantId, new ParticipantScore { ParticipantId = item.Participant.ParticipantId, Name = item.Participant.FirstName + " " + item.Participant.LastName, Score = item.Score, Participant = item.Participant });
                 }
 
                 team.Score = team.Score + item.Score;
                 teamScoresResult[item.Team.TeamId] = team;
             }
 
-            List<TeamScore> result = teamScoresResult.Values.OrderBy(ts => ts.Score).ThenBy(ts => ts.SchoolName).ThenBy(ts => ts.TeamName).ToList();
+            List<TeamScore> result = teamScoresResult.Values.OrderByDescending(ts => ts.Score).ThenBy(ts => ts.SchoolName).ThenBy(ts => ts.TeamName).ToList();
             Response.AddHeader("Refresh", "300");
             return View(result);
         }

@@ -1,0 +1,50 @@
+﻿@model LinkedList<Choonbee.Models.Participant>
+@{
+    ViewBag.Title = "Participants";
+}
+
+<h2>@ViewBag.Heading</h2>
+<h3>Manage Participants</h3>
+
+<h4><a href="/Division/AddParticipant/@ViewBag.DivisionId">Add Participants</a></h4>
+<h4><a href="/Division/Split/@ViewBag.DivisionId">Split Division</a></h4>
+<h4><a href="/Division/Stage/@ViewBag.DivisionId">Stage Division</a></h4>
+@if(ViewBag.Sparring)
+{    
+    <h4><a href="/Division/ManageBracket/@ViewBag.DivisionId">Manage Bracket</a></h4>
+}
+    @if(Model != null){
+        <table>
+            <tr>
+                <td>Name</td><td>Rank</td><td>Age</td><td>Gender</td><td>Height</td><td></td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a href="/Tournament/ManageParticipantDivision/@ViewBag.TournamentId?participantid=@item.ParticipantId">@item.FirstName @item.LastName</a></td>
+                    <td>@item.Rank.RankName</td>
+                    <td>@item.Age</td>
+                    <td>@item.Gender</td>
+                    <td>@item.HeightFeet'@item.HeightInches</td>
+                    <td><a href="/Division/RemoveParticipant/@ViewBag.DivisionId?participantId=@item.ParticipantId">Remove from Division</a></td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <p>No participants found.</p>
+    }
+<br />
+<hr />
+@using (Html.BeginForm()) {
+        <fieldset>
+            <legend>Add participant</legend>
+            @Html.ValidationSummary(true)
+            @Html.DropDownList("AllParticipants", ViewBag.AllParticipants as SelectList)
+            <p>
+                <input type="submit" value="Add Participant to Division" />
+            </p>
+        </fieldset>
+}
+<a href="/Tournament/ViewDivisions/@ViewBag.TournamentId">Return to divisions..</a>

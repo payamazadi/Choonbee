@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "AddTeamParticipant";
+}
+
+<h2>AddTeamParticipant</h2>
+
+@if(ViewBag.AllParticipants.Count != 0)
+{
+    using (Html.BeginForm()) {
+        @Html.ValidationSummary(true)
+    
+        <fieldset>
+            <legend>Test</legend>
+            @Html.DropDownList("AllParticipants", ViewBag.AllParticipants as SelectList)
+        </fieldset>
+    
+        <input type="submit" value="Create" />
+    }
+}
+else
+{
+    <p>No participants can be added: there are no participants from this team's school that are not already on another team.</p>   
+}
+@Html.ActionLink("Return to tournament teams..", "ManageTeams", new { id = ViewBag.TournamentId })

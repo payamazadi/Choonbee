@@ -5,5 +5,6 @@
         public int ParticipantId;
         public string Name;
         public int Score;
+        public Participant Participant;
     }
 }

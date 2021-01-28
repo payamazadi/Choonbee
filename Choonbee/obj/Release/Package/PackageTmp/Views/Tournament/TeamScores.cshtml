@@ -5,12 +5,23 @@
 }
 
 <h2>Team Scores</h2>
+<p>Last Updated: <b>@DateTime.Now</b></p>
 
 @foreach (var team in Model)
 {
-    <p>@team.SchoolName - @team.TeamName - @team.Score</p>
-    foreach (var participant in team.Participants.Values.OrderBy(p => p.Score).ThenBy(p => p.Name))
+    <p><h1>@team.SchoolName - @team.TeamName - @team.Score</h1></p>
+    foreach (var participant in team.Participants.Values.OrderByDescending(p => p.Score).ThenBy(p => p.Name))
     {
-        <p>@participant.Name - @participant.Score</p>
+        
+        var divisionWinners = participant.Participant.DivisionWinners.Where(d => d.Division.Tournament.TournamentId == ViewBag.TournamentId);
+        String divisionsWon = "";
+        foreach (var divisionWinner in divisionWinners)
+        {
+            divisionsWon = divisionWinner.Division.FriendlyId + "(" + divisionWinner.Division.RankGroup.Name + ", " + divisionWinner.Division.AgeGroup.Name + "," + divisionWinner.Division.DivisionType.Name + "): " + divisionWinner.Points + " (rank " + divisionWinner.Rank + ")";
+            
+        }
+        
     }
 }
+
+<span style="color: red"><b>Warning: This feature is experminental. There may be inaccuracies.</b></span>

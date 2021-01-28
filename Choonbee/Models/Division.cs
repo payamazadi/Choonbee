@@ -21,6 +21,7 @@ namespace Choonbee.Models
             this.DivisionFormTieHistories1 = new HashSet<DivisionFormTieHistory>();
             this.DivisionWinners = new HashSet<DivisionWinner>();
             this.DivisionParticipants = new HashSet<DivisionParticipant>();
+            this.SparringEntries = new HashSet<SparringEntry>();
         }
     
         public int DivisionId { get; set; }
@@ -36,6 +37,7 @@ namespace Choonbee.Models
         public int DivisionStatusId { get; set; }
         public System.DateTime DateEntered { get; set; }
         public int Order { get; set; }
+        public Nullable<int> NumSplits { get; set; }
     
         public virtual AgeGroup AgeGroup { get; set; }
         public virtual ICollection<DivisionFormScore> DivisionFormScores { get; set; }
@@ -47,5 +49,6 @@ namespace Choonbee.Models
         public virtual DivisionStatus DivisionStatus { get; set; }
         public virtual ICollection<DivisionWinner> DivisionWinners { get; set; }
         public virtual ICollection<DivisionParticipant> DivisionParticipants { get; set; }
+        public virtual ICollection<SparringEntry> SparringEntries { get; set; }
     }
 }

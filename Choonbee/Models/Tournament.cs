@@ -25,9 +25,11 @@ namespace Choonbee.Models
         public string Name { get; set; }
         public System.DateTime DateEntered { get; set; }
         public System.DateTime DateHeld { get; set; }
+        public int SeasonId { get; set; }
     
         public virtual ICollection<TournamentTeam> TournamentTeams { get; set; }
         public virtual ICollection<Division> Divisions { get; set; }
         public virtual ICollection<Participant> Participants { get; set; }
+        public virtual Season Season { get; set; }
     }
 }

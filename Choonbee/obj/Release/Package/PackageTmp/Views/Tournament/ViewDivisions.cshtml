@@ -1,48 +1,75 @@
-﻿@model IEnumerable<Choonbee.Models.Division>
+﻿@model List<Choonbee.Models.TournamentDivision>
 @{
     ViewBag.Title = "ViewDivisions";
+    var completed = Model.Count(m => m.DivisionStatusName == "Completed");
+    var total = Model.Count;
+    var completedPct = Math.Round((double)completed / total * 100, 0);
+    var remaining = total - completed;
 }
 
 <h2>@ViewBag.Heading</h2>
+<br />
+<span style="background:#fcd03b;">Open: @Model.Count(m => m.DivisionStatusName == "Open")</span> - 
+<span style="background:#00a260;">Staged: @Model.Count(m => m.DivisionStatusName == "Staged")</span> - 
+<span style="background:#fa3c24;">In Progress: @Model.Count(m => m.DivisionStatusName == "In Progress")</span> -
+<span>Completed: @completed</span><br /><br />
+<span style="background:orange; color:white">Remaining: @remaining</span> - 
+<span style="background:purple; color:white">Total: @total</span> - 
+<span style="background:#00a260; color:white">Pct Completed: @completedPct%</span>
 
 
+<h3>@Html.ActionLink("All", "ViewDivisions", new { id = ViewBag.TournamentId, DivisionType = -1}) @Html.ActionLink("Weapons", "ViewDivisions", new { id = ViewBag.TournamentId, DivisionType = 2}) @Html.ActionLink("Forms", "ViewDivisions", new { id = ViewBag.TournamentId, DivisionType = 3}) @Html.ActionLink("Sparring", "ViewDivisions", new { id = ViewBag.TournamentId, DivisionType = 1}) @Html.ActionLink("Toggle Adults", "ViewDivisions", new { id = ViewBag.TournamentId, ToggleAdults = 1})
+</h3>
 
 <table>
     <tr class="border_bottom">
-        <td>Friendly ID</td><td>Rank Group</td><td>Age Group</td><td>Genders</td><td>Status</td><td>#Ppl</td><td></td><td></td><td></td>
+        <td>ID</td><td>Rank Group</td><td>Age Group</td><td>Genders</td><td>#Ppl</td><td></td><td></td><td></td>
     </tr>
 
     @foreach(var item in Model){
+        var participantCount = item.ParticipantCount;
+        
         //TODO: yet again
         var color = "none";
-        if (item.DivisionStatus.Name == "Staged")
+        if (item.DivisionStatusName == "Staged")
         {
-            color = "green";
+            color = "#00a260";
         }
-        else if (item.DivisionStatus.Name == "Open")
+        else if (item.DivisionStatusName == "Open")
         {
-            color = "gray";
+            color = "#fcd03b";
         }
-        else if (item.DivisionStatus.Name == "In Progress")
+        else if (item.DivisionStatusName == "In Progress")
         {
-            color = "red";
+            color = "#fa3c24";
         }
         else
         {
             color = "none";
         }
+
+        if (item.ParentDivisionId == 0 && (item.DivisionType.DivisionTypeId == 1 || item.DivisionType.DivisionTypeId == 4) && item.DivisionStatusName != "Completed")
+        {
+            color = "pink";
+        }
             
             
         <tr class="border_bottom" style="background-color:@color;">
             <td>@item.FriendlyId</td>
-            <td>@item.RankGroup.Name</td>
+            <td>@item.RankGroupName</td>
             <td>@item.AgeGroup.Name</td>
             <td>@item.Genders</td>
-            <td>@item.DivisionStatus.Name</td>
-            <td>@item.DivisionParticipants.Count</td>
-            <td><a href="/Division/Participants/@item.DivisionId">Manage Division Registration</a></td>
-            <td><a href="/Division/Stage/@item.DivisionId">Stage!</a></td>
-            <td><a href="/Division/Score/@item.DivisionId">Launch!</a></td>
+            <td>@participantCount</td>
+            <td><a href="/Division/Participants/@item.DivisionId">Manage</a></td>
+            <td><a href="/Division/Stage/@item.DivisionId">Stage</a></td>
+            <td>
+            @if((item.ParentDivisionId != 0 && (item.DivisionType.DivisionTypeId == 1 || item.DivisionType.DivisionTypeId == 4)) || (item.DivisionType.DivisionTypeId != 1 && item.DivisionType.DivisionTypeId != 4)){
+                <a href="/Division/Score/@item.DivisionId">Launch</a>
+            }
+            else{
+                Response.Write("&nbsp;");
+            }
+            </td>
         </tr>
     }
 </table>

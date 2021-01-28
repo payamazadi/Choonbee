@@ -1,0 +1,146 @@
+﻿@model Choonbee.Models.Division
+
+<input type="hidden" name="DivisionId" id="DivisionId" value="@Model.DivisionId" />
+<input type="hidden" name="TournamentId" id="TournamentId" value="@Model.TournamentId" />
+<input type="hidden" name="ParentDivisionId" id="ParentDivisionId" value="@Model.ParentDivisionId" />
+<input type="hidden" name="FriendlyId" id="FriendlyId" value="@Model.FriendlyId" />
+<input type="hidden" name="RankGroupId" id="RankGroupId" value="@Model.RankGroupId" />
+<input type="hidden" name="AgeGroupId" id="AgeGroupId" value="@Model.AgeGroupId" />
+<input type="hidden" name="DivisionTypeId" id="DivisionTypeId" value="@Model.DivisionTypeId" />
+<input type="hidden" name="Genders" id="Genders" value="@Model.Genders" />
+<input type="hidden" name="AdditionalidentifierText" id="AdditionalidentifierText" value="@Model.AdditionalidentifierText" />
+<input type="hidden" name="HadTieBreaker" id="HadTieBreaker" value="@Model.HadTieBreaker" />
+<input type="hidden" name="DivisionStatusId" id="DivisionStatusId" value="@Model.DivisionStatusId" />
+<input type="hidden" name="DateEntered" id="DateEntered" value="@Model.DateEntered" />
+<input type="hidden" name="Order" id="Order" value="@Model.Order" />
+<input type="hidden" name="NumSplits" id="NumSplits" value="@Model.NumSplits" />
+<input type="hidden" name="DivisionHeading" id="DivisionHeading" value="@ViewBag.DivisionHeading" />
+<input type="hidden" name="Successful" id="Successful" value="" />
+
+<h1>@ViewBag.DivisionHeading</h1><br />
+<a href="#" onclick="addBucket()">Add Bucket</a><a href="#" onclick="updateActiveNames()">Refresh Classes</a>  <a href="/Division/Unstage/@Model.DivisionId">Unstage Division</a> <a href="/Division/Participants/@Model.DivisionId">Manage Division</a> <a href="/Division/Close/@Model.DivisionId">Close Division</a> <br /> Remove Participant: <ul id="participantKiller" class="connectedSortable"></ul>
+<div id="mainContainer" class="row">
+    <!--
+    <div class="col-md-3">
+        <h3 class="divisionHeading">Participants</h3>
+        <ul id="sortable1" class="connectedSortable">
+        </ul>
+    </div>
+
+    <div class="col-md-3">
+        <h3 class="divisionHeading">Division A</h3>
+        (link) (link) (link) (link) (link) (link) 
+        <ul id="sortable2" class="connectedSortable">
+            <li>aaaaaaaaaaa aaaaaaaaaaa</li>
+        </ul>
+    </div>
+    -->
+
+    
+    
+</div>
+
+<div id="secondaryContainer" class="row">
+        <h3>Staged</h3>
+</div>
+
+<div class="row">
+    <h3>Add Additional Participants</h3>
+    <fieldset>
+        <legend>Add participant</legend>
+        @Html.ValidationSummary(true)
+        @Html.DropDownList("AllParticipants", ViewBag.AllParticipants as SelectList)
+        <p>
+            <button onclick="addAdditionalParticipant()">Add Participant to Division</button> 
+        </p>
+    </fieldset>
+
+
+</div>
+@section Scripts{
+    <script src="/Scripts/jquery-ui-1.11.4.js"></script>
+    <script src="/Scripts/jquery-barIndicator.js"></script>
+    <script src="/Scripts/featherlight.min.js"></script>
+    <script src="/Scripts/Models.js"></script>
+    <script src="/Scripts/DivisionParticipants.js"></script>
+}
+
+@section Styles{
+    
+    <link href="~/Content/bi-style.css" rel="stylesheet" />
+    <link href="~/Content/featherlight.min.css" rel="stylesheet" />
+    
+    <style>
+        .bi-custom {
+            display:none;
+        }
+
+        
+        ul {
+            padding: 0;
+            list-style-type: none;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+            
+        .connectedSortable {
+            border: 1px solid #eee;
+            width: 275px;
+            min-height: 20px;
+            list-style-type: none;
+            margin: 0;
+            padding: 5px 0 0 0;
+        }
+
+        body {
+            background-color:#000;
+        }
+
+        .divisionHeading, h2, hr {
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .content-wrapper {
+            margin: 10px;
+            max-width: none;
+        }
+
+        .bucket {
+            margin-top: 10px;
+        }
+
+        .belt, .school{
+             width: 90px;
+             height: 3px;    
+        }
+
+        .gender {
+            
+        }
+
+        .beltBeginner {
+            background: orange;
+        }
+
+        .beltIntermediate {
+            background: blue;
+        }
+
+        .beltAdvanced {
+            background: brown;
+        }
+
+        .beltBlack {
+            background: black;
+        }
+
+        .M {
+            background: #0094ff;
+        }
+
+        .F {
+            background: pink;
+        }
+    </style>
+}

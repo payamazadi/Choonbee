@@ -23,6 +23,7 @@ namespace Choonbee.Models
     
         public int RankGroupId { get; set; }
         public string Name { get; set; }
+        public int SortOrder { get; set; }
     
         public virtual ICollection<Rank> Ranks { get; set; }
         public virtual ICollection<DivisionDefault> DivisionDefaults { get; set; }

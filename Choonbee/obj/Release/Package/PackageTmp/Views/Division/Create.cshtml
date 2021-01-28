@@ -1,0 +1,133 @@
+﻿@model Choonbee.Models.Division
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Division</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TournamentId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TournamentId)
+            @Html.ValidationMessageFor(model => model.TournamentId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ParentDivisionId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ParentDivisionId)
+            @Html.ValidationMessageFor(model => model.ParentDivisionId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FriendlyId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FriendlyId)
+            @Html.ValidationMessageFor(model => model.FriendlyId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.RankGroupId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.RankGroupId)
+            @Html.ValidationMessageFor(model => model.RankGroupId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AgeGroupId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AgeGroupId)
+            @Html.ValidationMessageFor(model => model.AgeGroupId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DivisionTypeId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DivisionTypeId)
+            @Html.ValidationMessageFor(model => model.DivisionTypeId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Genders)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Genders)
+            @Html.ValidationMessageFor(model => model.Genders)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AdditionalidentifierText)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.AdditionalidentifierText)
+            @Html.ValidationMessageFor(model => model.AdditionalidentifierText)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HadTieBreaker)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HadTieBreaker)
+            @Html.ValidationMessageFor(model => model.HadTieBreaker)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DivisionStatusId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DivisionStatusId)
+            @Html.ValidationMessageFor(model => model.DivisionStatusId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateEntered)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateEntered)
+            @Html.ValidationMessageFor(model => model.DateEntered)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Order)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Order)
+            @Html.ValidationMessageFor(model => model.Order)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NumSplits)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NumSplits)
+            @Html.ValidationMessageFor(model => model.NumSplits)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

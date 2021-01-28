@@ -36,10 +36,10 @@ namespace Choonbee.Models
         public int SchoolId { get; set; }
         public System.DateTime DateEntered { get; set; }
         public System.DateTime DateModified { get; set; }
-        public bool Active { get; set; }
         public string Gender { get; set; }
         public int Age { get; set; }
         public string Form { get; set; }
+        public bool League { get; set; }
     
         public virtual ICollection<DivisionFormScore> DivisionFormScores { get; set; }
         public virtual ICollection<DivisionFormTieHistory> DivisionFormTieHistories { get; set; }

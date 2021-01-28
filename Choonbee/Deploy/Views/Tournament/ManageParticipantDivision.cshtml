@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "ManageParticipantDivision";
+}
+
+<h2>Register <a href="/Participant/Edit/@ViewBag.Participant.ParticipantId"><span style="background-color:yellow;">@ViewBag.ParticipantName</span></a> for divisions in @ViewBag.TournamentName</h2>
+
+@if(ViewBag.MyDivisions.Count != 0)
+{
+    <table>
+        <tr>
+            <td>Friendly ID</td>
+            <td>Division Type</td>
+            <td>Rank Group</td>
+            <td>Age Group</td>
+            <td>Gender</td>
+            <td></td>
+        </tr>
+    @foreach (var division in ViewBag.MyDivisions)
+    {
+        <tr>
+            <td>@division.FriendlyId</td>
+            <td>@division.DivisionType.Name</td>
+            <td>@division.RankGroup.Name</td>
+            <td>@division.AgeGroup.Name</td>
+            <td>@division.Genders</td>
+            <td><a href="/Tournament/RemoveParticipantDivision/@ViewBag.TournamentId?participantId=@ViewBag.ParticipantId&divisionId=@division.DivisionId">Remove</a></td>
+        </tr>
+    }
+    </table>
+}
+else
+{
+    <p>Currently not registered for any divisions in this tournament.</p>
+}
+
+<h3>Available Divisions for Registration</h3>
+@if(ViewBag.AllQualifiedDivisions.Count != 0)
+{
+    <table>
+        <tr>
+            <td>Friendly ID</td>
+            <td>Division Type</td>
+            <td>Rank Group</td>
+            <td>Age Group</td>
+            <td>Gender</td>
+            <td></td>
+        </tr>
+    @foreach (var division in ViewBag.AllQualifiedDivisions)
+    {
+        <tr>
+            <td>@division.FriendlyId</td>
+            <td>@division.DivisionType.Name</td>
+            <td>@division.RankGroup.Name</td>
+            <td>@division.AgeGroup.Name</td>
+            <td>@division.Genders</td>
+            <td><a href="/Tournament/AddParticipantDivision/@ViewBag.TournamentId?participantId=@ViewBag.ParticipantId&divisionId=@division.DivisionId">Register</a></td>
+        </tr>
+    }
+    </table>
+}
+else
+{
+    <p>No more divisions available. May already be signed up for all qualifying divisions.</p>
+}
+
+<h3><a href="/Tournament/Details/@ViewBag.TournamentId">Back to Tournament..</a></h3>

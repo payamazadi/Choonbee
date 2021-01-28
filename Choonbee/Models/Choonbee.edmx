@@ -20,6 +20,8 @@
           <EntitySet Name="RankGroups" EntityType="Choonbee.Store.RankGroups" store:Type="Tables" Schema="league_pima" />
           <EntitySet Name="Ranks" EntityType="Choonbee.Store.Ranks" store:Type="Tables" Schema="league_pima" />
           <EntitySet Name="Schools" EntityType="Choonbee.Store.Schools" store:Type="Tables" Schema="league_pima" />
+          <EntitySet Name="Seasons" EntityType="Choonbee.Store.Seasons" store:Type="Tables" Schema="league_pima" />
+          <EntitySet Name="SparringEntries" EntityType="Choonbee.Store.SparringEntries" store:Type="Tables" Schema="league_pima" />
           <EntitySet Name="TournamentParticipants" EntityType="Choonbee.Store.TournamentParticipants" store:Type="Tables" Schema="league_pima" />
           <EntitySet Name="Tournaments" EntityType="Choonbee.Store.Tournaments" store:Type="Tables" Schema="league_pima" />
           <EntitySet Name="TournamentTeamMembers" EntityType="Choonbee.Store.TournamentTeamMembers" store:Type="Tables" Schema="league_pima" />
@@ -112,6 +114,10 @@
             <End Role="Ranks" EntitySet="Ranks" />
             <End Role="RankGroupRanks" EntitySet="RankGroupRanks" />
           </AssociationSet>
+          <AssociationSet Name="SparringEntries_ibfk_1" Association="Choonbee.Store.SparringEntries_ibfk_1">
+            <End Role="Divisions" EntitySet="Divisions" />
+            <End Role="SparringEntries" EntitySet="SparringEntries" />
+          </AssociationSet>
           <AssociationSet Name="TournamentParticipants_ibfk_1" Association="Choonbee.Store.TournamentParticipants_ibfk_1">
             <End Role="Tournaments" EntitySet="Tournaments" />
             <End Role="TournamentParticipants" EntitySet="TournamentParticipants" />
@@ -123,6 +129,10 @@
           <AssociationSet Name="TournamentParticipants_ibfk_3" Association="Choonbee.Store.TournamentParticipants_ibfk_3">
             <End Role="Tournaments" EntitySet="Tournaments" />
             <End Role="TournamentParticipants" EntitySet="TournamentParticipants" />
+          </AssociationSet>
+          <AssociationSet Name="Tournaments_ibfk_1" Association="Choonbee.Store.Tournaments_ibfk_1">
+            <End Role="Seasons" EntitySet="Seasons" />
+            <End Role="Tournaments" EntitySet="Tournaments" />
           </AssociationSet>
           <AssociationSet Name="TournamentTeamMembers_ibfk_1" Association="Choonbee.Store.TournamentTeamMembers_ibfk_1">
             <End Role="TournamentTeams" EntitySet="TournamentTeams" />
@@ -213,6 +223,7 @@
           <Property Name="DivisionStatusId" Type="int" Nullable="false" />
           <Property Name="DateEntered" Type="date" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="NumSplits" Type="int" />
         </EntityType>
         <EntityType Name="DivisionStatuses">
           <Key>
@@ -256,7 +267,7 @@
           <Property Name="SchoolId" Type="int" Nullable="false" />
           <Property Name="DateEntered" Type="date" Nullable="false" />
           <Property Name="DateModified" Type="date" Nullable="false" />
-          <Property Name="Active" Type="bool" Nullable="false" />
+          <Property Name="League" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="RankGroupRanks">
           <Key>
@@ -272,6 +283,7 @@
           </Key>
           <Property Name="RankGroupId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Ranks">
           <Key>
@@ -288,6 +300,25 @@
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="LocationText" Type="varchar" Nullable="false" MaxLength="200" />
         </EntityType>
+        <EntityType Name="Seasons">
+          <Key>
+            <PropertyRef Name="SeasonId" />
+          </Key>
+          <Property Name="SeasonId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="5000" />
+        </EntityType>
+        <EntityType Name="SparringEntries">
+          <Key>
+            <PropertyRef Name="SparringEntryId" />
+          </Key>
+          <Property Name="SparringEntryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DivisionId" Type="int" Nullable="false" />
+          <Property Name="ParticipantId" Type="int" Nullable="false" />
+          <Property Name="Round" Type="int" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Completed" Type="bool" Nullable="false" />
+        </EntityType>
         <EntityType Name="TournamentParticipants">
           <Key>
             <PropertyRef Name="TournamentId" />
@@ -301,9 +332,10 @@
             <PropertyRef Name="TournamentId" />
           </Key>
           <Property Name="TournamentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SeasonId" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" Nullable="false" MaxLength="200" />
           <Property Name="DateEntered" Type="date" Nullable="false" />
-          <Property Name="DateHeld" Type="date" Nullable="false" />
+          <Property Name="DateHeld" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="TournamentTeamMembers">
           <Key>
@@ -586,6 +618,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SparringEntries_ibfk_1">
+          <End Role="Divisions" Type="Choonbee.Store.Divisions" Multiplicity="1" />
+          <End Role="SparringEntries" Type="Choonbee.Store.SparringEntries" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Divisions">
+              <PropertyRef Name="DivisionId" />
+            </Principal>
+            <Dependent Role="SparringEntries">
+              <PropertyRef Name="DivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="TournamentParticipants_ibfk_1">
           <End Role="Tournaments" Type="Choonbee.Store.Tournaments" Multiplicity="1" />
           <End Role="TournamentParticipants" Type="Choonbee.Store.TournamentParticipants" Multiplicity="*" />
@@ -619,6 +663,18 @@
             </Principal>
             <Dependent Role="TournamentParticipants">
               <PropertyRef Name="TournamentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Tournaments_ibfk_1">
+          <End Role="Seasons" Type="Choonbee.Store.Seasons" Multiplicity="1" />
+          <End Role="Tournaments" Type="Choonbee.Store.Tournaments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Seasons">
+              <PropertyRef Name="SeasonId" />
+            </Principal>
+            <Dependent Role="Tournaments">
+              <PropertyRef Name="SeasonId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -790,6 +846,16 @@
             <End Role="School" EntitySet="Schools" />
             <End Role="TournamentTeam" EntitySet="TournamentTeams" />
           </AssociationSet>
+          <EntitySet Name="Seasons" EntityType="Choonbee.Season" />
+          <AssociationSet Name="Tournaments_ibfk_1" Association="Choonbee.Tournaments_ibfk_1">
+            <End Role="Season" EntitySet="Seasons" />
+            <End Role="Tournament" EntitySet="Tournaments" />
+          </AssociationSet>
+          <EntitySet Name="SparringEntries" EntityType="Choonbee.SparringEntry" />
+          <AssociationSet Name="SparringEntries_ibfk_1" Association="Choonbee.SparringEntries_ibfk_1">
+            <End Role="Division" EntitySet="Divisions" />
+            <End Role="SparringEntry" EntitySet="SparringEntries" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="School">
           <Key>
@@ -810,6 +876,7 @@
           <NavigationProperty Name="Ranks" Relationship="Choonbee.RankGroupRanks" FromRole="RankGroup" ToRole="Rank" />
           <NavigationProperty Name="DivisionDefaults" Relationship="Choonbee.DivisionDefaults_ibfk_1" FromRole="RankGroup" ToRole="DivisionDefault" />
           <NavigationProperty Name="Divisions" Relationship="Choonbee.Divisions_ibfk_1" FromRole="RankGroup" ToRole="Division" />
+          <Property Type="Int32" Name="SortOrder" Nullable="false" />
         </EntityType>
         <EntityType Name="Rank">
           <Key>
@@ -831,6 +898,8 @@
           <NavigationProperty Name="TournamentTeams" Relationship="Choonbee.TournamentTeams_ibfk_1" FromRole="Tournament" ToRole="TournamentTeam" />
           <NavigationProperty Name="Divisions" Relationship="Choonbee.Divisions_ibfk_2" FromRole="Tournament" ToRole="Division" />
           <NavigationProperty Name="Participants" Relationship="Choonbee.TournamentParticipants" FromRole="Tournament" ToRole="Participant" />
+          <Property Type="Int32" Name="SeasonId" Nullable="false" />
+          <NavigationProperty Name="Season" Relationship="Choonbee.Tournaments_ibfk_1" FromRole="Tournament" ToRole="Season" />
         </EntityType>
         <Association Name="RankGroupRanks">
           <End Type="Choonbee.RankGroup" Role="RankGroup" Multiplicity="*" />
@@ -973,6 +1042,8 @@
           <NavigationProperty Name="DivisionWinners" Relationship="Choonbee.DivisionWinners_ibfk_1" FromRole="Division" ToRole="DivisionWinner" />
           <NavigationProperty Name="DivisionParticipants" Relationship="Choonbee.DivisionParticipants_ibfk_1" FromRole="Division" ToRole="DivisionParticipant" />
           <Property Type="Int32" Name="Order" Nullable="false" />
+          <NavigationProperty Name="SparringEntries" Relationship="Choonbee.SparringEntries_ibfk_1" FromRole="Division" ToRole="SparringEntry" />
+          <Property Type="Int32" Name="NumSplits" />
         </EntityType>
         <Association Name="DivisionDefaults_ibfk_2">
           <End Type="Choonbee.AgeGroup" Role="AgeGroup" Multiplicity="1" />
@@ -1133,7 +1204,6 @@
           <Property Type="Int32" Name="SchoolId" Nullable="false" />
           <Property Type="DateTime" Name="DateEntered" Nullable="false" Precision="0" />
           <Property Type="DateTime" Name="DateModified" Nullable="false" Precision="0" />
-          <Property Type="Boolean" Name="Active" Nullable="false" />
           <NavigationProperty Name="DivisionFormScores" Relationship="Choonbee.DivisionFormScores_ibfk_2" FromRole="Participant" ToRole="DivisionFormScore" />
           <NavigationProperty Name="DivisionFormTieHistories" Relationship="Choonbee.DivisionFormTieHistory_ibfk_1" FromRole="Participant" ToRole="DivisionFormTieHistory" />
           <NavigationProperty Name="DivisionFormTieHistories1" Relationship="Choonbee.DivisionFormTieHistory_ibfk_2" FromRole="Participant" ToRole="DivisionFormTieHistory" />
@@ -1146,6 +1216,7 @@
           <Property Type="Int32" Name="Age" Nullable="false" />
           <NavigationProperty Name="DivisionParticipants" Relationship="Choonbee.DivisionParticipants_ibfk_2" FromRole="Participant" ToRole="DivisionParticipant" />
           <Property Type="String" Name="Form" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="League" Nullable="false" />
         </EntityType>
         <Association Name="DivisionFormScores_ibfk_2">
           <End Type="Choonbee.Participant" Role="Participant" Multiplicity="1" />
@@ -1274,6 +1345,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Season">
+          <Key>
+            <PropertyRef Name="SeasonId" />
+          </Key>
+          <Property Type="Int32" Name="SeasonId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tournaments" Relationship="Choonbee.Tournaments_ibfk_1" FromRole="Season" ToRole="Tournament" />
+        </EntityType>
+        <Association Name="Tournaments_ibfk_1">
+          <End Type="Choonbee.Season" Role="Season" Multiplicity="1" />
+          <End Type="Choonbee.Tournament" Role="Tournament" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Season">
+              <PropertyRef Name="SeasonId" />
+            </Principal>
+            <Dependent Role="Tournament">
+              <PropertyRef Name="SeasonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SparringEntry">
+          <Key>
+            <PropertyRef Name="SparringEntryId" />
+          </Key>
+          <Property Type="Int32" Name="SparringEntryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="DivisionId" Nullable="false" />
+          <Property Type="Int32" Name="ParticipantId" Nullable="false" />
+          <Property Type="Int32" Name="Round" Nullable="false" />
+          <Property Type="Int32" Name="Order" Nullable="false" />
+          <Property Type="Boolean" Name="Completed" Nullable="false" />
+          <NavigationProperty Name="Division" Relationship="Choonbee.SparringEntries_ibfk_1" FromRole="SparringEntry" ToRole="Division" />
+        </EntityType>
+        <Association Name="SparringEntries_ibfk_1">
+          <End Type="Choonbee.Division" Role="Division" Multiplicity="1" />
+          <End Type="Choonbee.SparringEntry" Role="SparringEntry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="DivisionId" />
+            </Principal>
+            <Dependent Role="SparringEntry">
+              <PropertyRef Name="DivisionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1292,6 +1408,7 @@
           <EntitySetMapping Name="RankGroups">
             <EntityTypeMapping TypeName="Choonbee.RankGroup">
               <MappingFragment StoreEntitySet="RankGroups">
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="RankGroupId" ColumnName="RankGroupId" />
               </MappingFragment>
@@ -1308,6 +1425,7 @@
           <EntitySetMapping Name="Tournaments">
             <EntityTypeMapping TypeName="Choonbee.Tournament">
               <MappingFragment StoreEntitySet="Tournaments">
+                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
                 <ScalarProperty Name="DateHeld" ColumnName="DateHeld" />
                 <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1410,6 +1528,7 @@
           <EntitySetMapping Name="Divisions">
             <EntityTypeMapping TypeName="Choonbee.Division">
               <MappingFragment StoreEntitySet="Divisions">
+                <ScalarProperty Name="NumSplits" ColumnName="NumSplits" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
                 <ScalarProperty Name="DivisionStatusId" ColumnName="DivisionStatusId" />
@@ -1429,10 +1548,10 @@
           <EntitySetMapping Name="Participants">
             <EntityTypeMapping TypeName="Choonbee.Participant">
               <MappingFragment StoreEntitySet="Participants">
+                <ScalarProperty Name="League" ColumnName="League" />
                 <ScalarProperty Name="Form" ColumnName="Form" />
                 <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DateModified" ColumnName="DateModified" />
                 <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
                 <ScalarProperty Name="SchoolId" ColumnName="SchoolId" />
@@ -1469,6 +1588,27 @@
                 <ScalarProperty Name="DateEntered" ColumnName="DateEntered" />
                 <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
                 <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Seasons">
+            <EntityTypeMapping TypeName="Choonbee.Season">
+              <MappingFragment StoreEntitySet="Seasons">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SeasonId" ColumnName="SeasonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SparringEntries">
+            <EntityTypeMapping TypeName="Choonbee.SparringEntry">
+              <MappingFragment StoreEntitySet="SparringEntries">
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Round" ColumnName="Round" />
+                <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+                <ScalarProperty Name="DivisionId" ColumnName="DivisionId" />
+                <ScalarProperty Name="SparringEntryId" ColumnName="SparringEntryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
